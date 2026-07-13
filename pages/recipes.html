@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recipes | Will's Grill Studio</title>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <h1>Will's Grill</h1>
+            <span>Studio</span>
+
+        </div>
+
+        <nav>
+
+            <a href="../index.html">Dashboard</a>
+
+            <a href="recipes.html" class="active">
+                Recipes
+            </a>
+
+            <a href="ingredients.html">
+                Ingredients
+            </a>
+
+            <a href="validation.html">
+                Validation
+            </a>
+
+            <a href="settings.html">
+                Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- Main -->
+
+    <main class="content">
+
+        <header class="page-header">
+
+            <div>
+
+                <h2>Recipes</h2>
+
+                <p>Manage your recipe database.</p>
+
+            </div>
+
+            <button id="newRecipeButton"
+                    class="primary-button">
+
+                + New Recipe
+
+            </button>
+
+        </header>
+
+        <div class="toolbar">
+
+            <input
+                id="recipeSearch"
+                placeholder="Search recipes...">
+
+        </div>
+
+        <table class="recipe-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Name</th>
+
+                    <th>Category</th>
+
+                    <th>Prep</th>
+
+                    <th>Cook</th>
+
+                    <th>Serves</th>
+
+                    <th>Image</th>
+
+                    <th>Edit</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="recipeTable">
+
+            </tbody>
+
+        </table>
+
+    </main>
+
+</div>
+
+<!-- Slide-out editor -->
+
+<aside id="editorPanel" class="editor-panel">
+
+    <div class="editor-header">
+
+        <h2>Edit Recipe</h2>
+
+        <button id="closeEditor">
+
+            ✕
+
+        </button>
+
+    </div>
+
+    <div class="editor-body">
+
+        <div class="editor-tabs">
+
+            <button class="tab active" data-tab="general">
+                General
+            </button>
+
+            <button class="tab" data-tab="ingredients">
+                Ingredients
+            </button>
+
+            <button class="tab" data-tab="method">
+                Method
+            </button>
+
+            <button class="tab" data-tab="nutrition">
+                Nutrition
+            </button>
+
+            <button class="tab" data-tab="image">
+                Image
+            </button>
+
+        </div>
+
+        <div id="editorContent">
+
+            <p>Select a recipe to begin editing.</p>
+
+        </div>
+
+    </div>
+
+</aside>
+
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/recipes.js"></script>
+
+</body>
+
+</html>

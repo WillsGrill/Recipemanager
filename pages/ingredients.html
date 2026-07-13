@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ingredients | Will's Grill Studio</title>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <h1>Will's Grill</h1>
+            <span>Studio</span>
+
+        </div>
+
+        <nav>
+
+            <a href="../index.html">Dashboard</a>
+
+            <a href="recipes.html">Recipes</a>
+
+            <a href="ingredients.html" class="active">Ingredients</a>
+
+            <a href="validation.html">Validation</a>
+
+            <a href="settings.html">Settings</a>
+
+        </nav>
+
+    </aside>
+
+    <main class="content">
+
+        <header class="page-header">
+
+            <div>
+
+                <h2>Ingredients</h2>
+
+                <p>Manage all ingredients used by recipes.</p>
+
+            </div>
+
+            <button id="newIngredientButton"
+                    class="primary-button">
+
+                + New Ingredient
+
+            </button>
+
+        </header>
+
+        <div class="toolbar">
+
+            <input
+                id="ingredientSearch"
+                placeholder="Search ingredients...">
+
+        </div>
+
+        <table class="recipe-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Name</th>
+
+                    <th>Category</th>
+
+                    <th>Unit</th>
+
+                    <th>Edit</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="ingredientTable">
+
+            </tbody>
+
+        </table>
+
+    </main>
+
+</div>
+
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/ingredients.js"></script>
+
+</body>
+
+</html>

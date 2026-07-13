@@ -1,0 +1,1235 @@
+[
+  {
+    "id": "REC001",
+    "version": 1,
+    "name": "Mediterranean Chicken Traybake",
+    "description": "A one-pan Mediterranean chicken dinner with peppers, tomatoes and herbs.",
+    "image": "rec001.jpg",
+    "category": "Chicken",
+    "prepTime": 10,
+    "cookTime": 35,
+    "serves": 2,
+    "difficulty": "Easy",
+    "ingredients": [
+      { "ingredient": "ING-M401", "quantity": 300 },
+      { "ingredient": "ING-V225", "quantity": 1 },
+      { "ingredient": "ING-V230", "quantity": 1 },
+      { "ingredient": "ING-V201", "quantity": 200 },
+      { "ingredient": "ING-V205", "quantity": 1 },
+      { "ingredient": "ING-V220", "quantity": 3 },
+      { "ingredient": "ING-H025", "quantity": 5 },
+      { "ingredient": "ING-O801", "quantity": 2 },
+      { "ingredient": "ING-S101", "quantity": 1 },
+      { "ingredient": "ING-S105", "quantity": 1 },
+      { "ingredient": "ING-S110", "quantity": 1 }
+    ],
+    "steps": [
+      "Preheat the oven to 200°C.",
+      "Slice the peppers and onion, then halve the cherry tomatoes.",
+      "Arrange the vegetables in a roasting tray with the garlic cloves.",
+      "Drizzle with olive oil and season with paprika, salt and pepper.",
+      "Place the chicken on top and scatter over the rosemary.",
+      "Roast for 30–35 minutes until the chicken reaches 75°C internally.",
+      "Rest the chicken for 5 minutes before slicing.",
+      "Serve with the roasted vegetables and pan juices."
+    ],
+    "nutrition": {
+      "calories": 520,
+      "protein": 47,
+      "carbs": 16,
+      "fat": 28
+    },
+    "tip": "Add feta for extra richness if serving guests."
+  },
+
+  {
+    "id": "REC002",
+    "version": 1,
+    "name": "Lemon Herb Chicken Skewers",
+    "description": "Juicy chicken skewers marinated with herbs, garlic and lemon.",
+    "image": "rec002.jpg",
+    "category": "Chicken",
+    "prepTime": 15,
+    "cookTime": 15,
+    "serves": 2,
+    "difficulty": "Easy",
+    "ingredients": [
+      { "ingredient": "ING-M401", "quantity": 350 },
+      { "ingredient": "ING-C901", "quantity": 1 },
+      { "ingredient": "ING-H001", "quantity": 10 },
+      { "ingredient": "ING-H005", "quantity": 10 },
+      { "ingredient": "ING-V220", "quantity": 2 },
+      { "ingredient": "ING-O801", "quantity": 2 },
+      { "ingredient": "ING-S101", "quantity": 1 },
+      { "ingredient": "ING-S105", "quantity": 1 }
+    ],
+    "steps": [
+      "Cut the chicken into bite-sized cubes.",
+      "Mix olive oil, garlic, lemon juice and chopped herbs.",
+      "Coat the chicken in the marinade.",
+      "Leave to marinate for at least 30 minutes.",
+      "Thread the chicken onto skewers.",
+      "Cook on a hot grill or BBQ for 12–15 minutes, turning regularly.",
+      "Check the chicken reaches 75°C internally.",
+      "Serve with salad or couscous."
+    ],
+    "nutrition": {
+      "calories": 470,
+      "protein": 49,
+      "carbs": 4,
+      "fat": 26
+    },
+    "tip": "Soak wooden skewers for 30 minutes before grilling."
+  },
+
+  {
+    "id": "REC003",
+    "version": 1,
+    "name": "Greek Chicken Salad",
+    "description": "A fresh Greek-inspired salad with grilled chicken and feta.",
+    "image": "rec003.jpg",
+    "category": "Chicken",
+    "prepTime": 15,
+    "cookTime": 12,
+    "serves": 2,
+    "difficulty": "Easy",
+    "ingredients": [
+      { "ingredient": "ING-M401", "quantity": 300 },
+      { "ingredient": "ING-V265", "quantity": 100 },
+      { "ingredient": "ING-V201", "quantity": 150 },
+      { "ingredient": "ING-V250", "quantity": 1 },
+      { "ingredient": "ING-V205", "quantity": 0.5 },
+      { "ingredient": "ING-D505", "quantity": 75 },
+      { "ingredient": "ING-C975", "quantity": 40 },
+      { "ingredient": "ING-O801", "quantity": 2 },
+      { "ingredient": "ING-C901", "quantity": 0.5 },
+      { "ingredient": "ING-S101", "quantity": 1 },
+      { "ingredient": "ING-S105", "quantity": 1 }
+    ],
+    "steps": [
+      "Season the chicken with salt and pepper.",
+      "Grill the chicken until cooked through, then rest.",
+      "Prepare the salad vegetables.",
+      "Whisk together olive oil and lemon juice.",
+      "Slice the rested chicken.",
+      "Arrange the salad on serving plates.",
+      "Top with chicken, feta and olives.",
+      "Drizzle with dressing before serving."
+    ],
+    "nutrition": {
+      "calories": 495,
+      "protein": 44,
+      "carbs": 11,
+      "fat": 29
+    },
+    "tip": "Warm chicken contrasts beautifully with the cold salad."
+  }
+
+  ,
+{
+  "id": "REC004",
+  "version": 1,
+  "name": "Turkey Koftas with Herby Couscous",
+  "description": "Lean turkey koftas served with lemon and herb couscous and yoghurt.",
+  "image": "rec004.jpg",
+  "category": "Turkey",
+  "prepTime": 20,
+  "cookTime": 18,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-M410", "quantity": 300 },
+    { "ingredient": "ING-V220", "quantity": 2 },
+    { "ingredient": "ING-H005", "quantity": 10 },
+    { "ingredient": "ING-H020", "quantity": 8 },
+    { "ingredient": "ING-S120", "quantity": 1 },
+    { "ingredient": "ING-S125", "quantity": 1 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 },
+    { "ingredient": "ING-G615", "quantity": 120 },
+    { "ingredient": "ING-D501", "quantity": 80 },
+    { "ingredient": "ING-C901", "quantity": 0.5 },
+    { "ingredient": "ING-O801", "quantity": 1 }
+  ],
+  "steps": [
+    "Mix the turkey mince with garlic, parsley, mint, cumin, coriander, salt and pepper.",
+    "Shape into eight small koftas.",
+    "Cook the couscous according to the packet instructions.",
+    "Fluff the couscous with chopped herbs and lemon zest.",
+    "Heat a lightly oiled grill pan or BBQ.",
+    "Cook the koftas for 15–18 minutes, turning regularly.",
+    "Mix the Greek yoghurt with a squeeze of lemon juice.",
+    "Serve the koftas over the couscous with the yoghurt."
+  ],
+  "nutrition": {
+    "calories": 565,
+    "protein": 42,
+    "carbs": 37,
+    "fat": 24
+  },
+  "tip": "These freeze well before cooking."
+},
+
+{
+  "id": "REC005",
+  "version": 1,
+  "name": "Chicken Souvlaki",
+  "description": "Greek-inspired marinated chicken skewers with fresh salad.",
+  "image": "rec005.jpg",
+  "category": "Chicken",
+  "prepTime": 15,
+  "cookTime": 15,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-M401", "quantity": 320 },
+    { "ingredient": "ING-C901", "quantity": 1 },
+    { "ingredient": "ING-H001", "quantity": 10 },
+    { "ingredient": "ING-H005", "quantity": 10 },
+    { "ingredient": "ING-V220", "quantity": 2 },
+    { "ingredient": "ING-O801", "quantity": 2 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 },
+    { "ingredient": "ING-V250", "quantity": 0.5 },
+    { "ingredient": "ING-V201", "quantity": 150 }
+  ],
+  "steps": [
+    "Cube the chicken breast evenly.",
+    "Combine olive oil, lemon juice, garlic and herbs.",
+    "Marinate the chicken for at least 30 minutes.",
+    "Thread the chicken onto skewers.",
+    "Heat the BBQ or grill to a high heat.",
+    "Cook for 12–15 minutes until the chicken reaches 75°C.",
+    "Prepare a tomato and cucumber salad.",
+    "Serve immediately with the salad."
+  ],
+  "nutrition": {
+    "calories": 455,
+    "protein": 48,
+    "carbs": 8,
+    "fat": 24
+  },
+  "tip": "Metal skewers give the best browning."
+},
+
+{
+  "id": "REC006",
+  "version": 1,
+  "name": "Pollock with Pesto Pasta",
+  "description": "Pan-fried pollock served over basil pesto pasta with cherry tomatoes.",
+  "image": "rec006.jpg",
+  "category": "Fish",
+  "prepTime": 10,
+  "cookTime": 20,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-F305", "quantity": 2 },
+    { "ingredient": "ING-G605", "quantity": 160 },
+    { "ingredient": "ING-C935", "quantity": 45 },
+    { "ingredient": "ING-V201", "quantity": 180 },
+    { "ingredient": "ING-H001", "quantity": 8 },
+    { "ingredient": "ING-O801", "quantity": 1 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 },
+    { "ingredient": "ING-D515", "quantity": 20 }
+  ],
+  "steps": [
+    "Bring a pan of salted water to the boil.",
+    "Cook the pasta until al dente.",
+    "Season the pollock with salt and pepper.",
+    "Pan-fry the pollock until golden and cooked through.",
+    "Halve the cherry tomatoes and warm them gently.",
+    "Drain the pasta and stir through the pesto.",
+    "Add the tomatoes and grated Parmesan.",
+    "Top with the pollock and garnish with fresh basil."
+  ],
+  "nutrition": {
+    "calories": 590,
+    "protein": 41,
+    "carbs": 49,
+    "fat": 24
+  },
+  "tip": "Cod or haddock can be substituted if pollock isn't available."
+}
+,
+{
+  "id": "REC007",
+  "version": 1,
+  "name": "Herb Crusted Cod",
+  "description": "Oven baked cod with a crisp herb crumb, served with green vegetables.",
+  "image": "rec007.jpg",
+  "category": "Fish",
+  "prepTime": 15,
+  "cookTime": 20,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-F301", "quantity": 2 },
+    { "ingredient": "ING-G640", "quantity": 40 },
+    { "ingredient": "ING-H005", "quantity": 10 },
+    { "ingredient": "ING-H001", "quantity": 8 },
+    { "ingredient": "ING-D515", "quantity": 20 },
+    { "ingredient": "ING-O801", "quantity": 1 },
+    { "ingredient": "ING-V270", "quantity": 200 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 }
+  ],
+  "steps": [
+    "Preheat the oven to 200°C.",
+    "Mix breadcrumbs, Parmesan and chopped herbs.",
+    "Season the cod fillets.",
+    "Brush the fish with olive oil.",
+    "Press the breadcrumb mixture onto the fish.",
+    "Bake for 18–20 minutes until the fish flakes easily.",
+    "Steam the broccoli until tender.",
+    "Serve the cod alongside the broccoli."
+  ],
+  "nutrition": {
+    "calories": 470,
+    "protein": 44,
+    "carbs": 18,
+    "fat": 22
+  },
+  "tip": "A squeeze of lemon before serving brightens the flavours."
+},
+
+{
+  "id": "REC008",
+  "version": 1,
+  "name": "Thai Fishcakes",
+  "description": "Fresh homemade fishcakes with herbs and a light Thai flavour.",
+  "image": "rec008.jpg",
+  "category": "Fish",
+  "prepTime": 20,
+  "cookTime": 12,
+  "serves": 2,
+  "difficulty": "Medium",
+  "ingredients": [
+    { "ingredient": "ING-F305", "quantity": 350 },
+    { "ingredient": "ING-V220", "quantity": 2 },
+    { "ingredient": "ING-H010", "quantity": 15 },
+    { "ingredient": "ING-C905", "quantity": 1 },
+    { "ingredient": "ING-C930", "quantity": 2 },
+    { "ingredient": "ING-G640", "quantity": 40 },
+    { "ingredient": "ING-D530", "quantity": 1 },
+    { "ingredient": "ING-O815", "quantity": 1 },
+    { "ingredient": "ING-S130", "quantity": 1 }
+  ],
+  "steps": [
+    "Roughly chop the pollock.",
+    "Blend with garlic, coriander, fish sauce and chilli.",
+    "Mix through the egg and breadcrumbs.",
+    "Shape into six fishcakes.",
+    "Chill for 15 minutes.",
+    "Pan fry in a little sesame oil until golden.",
+    "Turn carefully and cook through.",
+    "Serve with lime wedges and salad."
+  ],
+  "nutrition": {
+    "calories": 455,
+    "protein": 46,
+    "carbs": 15,
+    "fat": 22
+  },
+  "tip": "Wet hands make shaping the fishcakes much easier."
+},
+
+{
+  "id": "REC009",
+  "version": 1,
+  "name": "Mediterranean Baked Salmon",
+  "description": "Salmon baked with tomatoes, olives and herbs.",
+  "image": "rec009.jpg",
+  "category": "Fish",
+  "prepTime": 10,
+  "cookTime": 20,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-F310", "quantity": 2 },
+    { "ingredient": "ING-V201", "quantity": 200 },
+    { "ingredient": "ING-C975", "quantity": 40 },
+    { "ingredient": "ING-H001", "quantity": 10 },
+    { "ingredient": "ING-V220", "quantity": 2 },
+    { "ingredient": "ING-O801", "quantity": 2 },
+    { "ingredient": "ING-C901", "quantity": 1 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 }
+  ],
+  "steps": [
+    "Preheat the oven to 200°C.",
+    "Place the salmon in a baking dish.",
+    "Scatter over tomatoes, olives and garlic.",
+    "Drizzle with olive oil.",
+    "Season well.",
+    "Bake for 18–20 minutes.",
+    "Finish with chopped basil and lemon juice.",
+    "Serve immediately."
+  ],
+  "nutrition": {
+    "calories": 540,
+    "protein": 42,
+    "carbs": 9,
+    "fat": 35
+  },
+  "tip": "Delicious served with steamed green beans or brown rice."
+}
+,
+{
+  "id": "REC010",
+  "version": 1,
+  "name": "Grilled Mackerel with Herby Potatoes",
+  "description": "Omega-3 rich mackerel served with crushed baby potatoes and fresh herbs.",
+  "image": "rec010.jpg",
+  "category": "Fish",
+  "prepTime": 15,
+  "cookTime": 20,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-F320", "quantity": 2 },
+    { "ingredient": "ING-H005", "quantity": 10 },
+    { "ingredient": "ING-H001", "quantity": 10 },
+    { "ingredient": "ING-O801", "quantity": 2 },
+    { "ingredient": "ING-C901", "quantity": 1 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 }
+  ],
+  "steps": [
+    "Cook the potatoes until tender.",
+    "Heat the grill or BBQ.",
+    "Season the mackerel fillets.",
+    "Grill the fish skin-side down first.",
+    "Drain and lightly crush the potatoes.",
+    "Mix the potatoes with herbs, olive oil and lemon.",
+    "Cook the fish until just flaky.",
+    "Serve immediately."
+  ],
+  "nutrition": {
+    "calories": 560,
+    "protein": 38,
+    "carbs": 32,
+    "fat": 30
+  },
+  "tip": "Excellent cooked over charcoal."
+},
+
+{
+  "id": "REC011",
+  "version": 1,
+  "name": "Mediterranean Chickpea Stew",
+  "description": "A hearty tomato and chickpea stew packed with Mediterranean flavours.",
+  "image": "rec011.jpg",
+  "category": "Vegetarian",
+  "prepTime": 10,
+  "cookTime": 30,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-B701", "quantity": 400 },
+    { "ingredient": "ING-C950", "quantity": 400 },
+    { "ingredient": "ING-V205", "quantity": 1 },
+    { "ingredient": "ING-V220", "quantity": 3 },
+    { "ingredient": "ING-H005", "quantity": 10 },
+    { "ingredient": "ING-S110", "quantity": 1 },
+    { "ingredient": "ING-S150", "quantity": 1 },
+    { "ingredient": "ING-O801", "quantity": 1 }
+  ],
+  "steps": [
+    "Heat the olive oil in a saucepan.",
+    "Cook the onion and garlic until softened.",
+    "Add the paprika and oregano.",
+    "Stir in the chopped tomatoes.",
+    "Add the chickpeas.",
+    "Simmer gently for 20 minutes.",
+    "Finish with chopped parsley.",
+    "Serve with crusty bread or couscous."
+  ],
+  "nutrition": {
+    "calories": 445,
+    "protein": 18,
+    "carbs": 56,
+    "fat": 15
+  },
+  "tip": "Even better the following day."
+},
+
+{
+  "id": "REC012",
+  "version": 1,
+  "name": "One-Pan Ratatouille",
+  "description": "Classic Provençal vegetables slowly cooked into a rich tomato sauce.",
+  "image": "rec012.jpg",
+  "category": "Vegetarian",
+  "prepTime": 15,
+  "cookTime": 35,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-V240", "quantity": 1 },
+    { "ingredient": "ING-V245", "quantity": 1 },
+    { "ingredient": "ING-V225", "quantity": 1 },
+    { "ingredient": "ING-V201", "quantity": 200 },
+    { "ingredient": "ING-V205", "quantity": 1 },
+    { "ingredient": "ING-V220", "quantity": 3 },
+    { "ingredient": "ING-C955", "quantity": 400 },
+    { "ingredient": "ING-H001", "quantity": 10 },
+    { "ingredient": "ING-O801", "quantity": 2 },
+    { "ingredient": "ING-S150", "quantity": 1 }
+  ],
+  "steps": [
+    "Dice all the vegetables evenly.",
+    "Heat olive oil in a large pan.",
+    "Cook the onion and garlic.",
+    "Add the remaining vegetables.",
+    "Pour in the passata.",
+    "Season with oregano.",
+    "Simmer for 30 minutes.",
+    "Finish with fresh basil before serving."
+  ],
+  "nutrition": {
+    "calories": 285,
+    "protein": 7,
+    "carbs": 28,
+    "fat": 16
+  },
+  "tip": "Great as a side dish or served with grilled fish."
+},
+{
+  "id": "REC013",
+  "version": 1,
+  "name": "Halloumi & Roasted Vegetable Couscous",
+  "description": "Roasted Mediterranean vegetables with grilled halloumi and fluffy couscous.",
+  "image": "rec013.jpg",
+  "category": "Vegetarian",
+  "prepTime": 15,
+  "cookTime": 25,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-D510", "quantity": 225 },
+    { "ingredient": "ING-G615", "quantity": 120 },
+    { "ingredient": "ING-V225", "quantity": 1 },
+    { "ingredient": "ING-V230", "quantity": 1 },
+    { "ingredient": "ING-V240", "quantity": 1 },
+    { "ingredient": "ING-V201", "quantity": 180 },
+    { "ingredient": "ING-H001", "quantity": 10 },
+    { "ingredient": "ING-O801", "quantity": 2 },
+    { "ingredient": "ING-C901", "quantity": 0.5 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 }
+  ],
+  "steps": [
+    "Preheat the oven to 200°C.",
+    "Chop the vegetables into even pieces.",
+    "Toss the vegetables with olive oil and seasoning.",
+    "Roast for 25 minutes.",
+    "Prepare the couscous according to the packet.",
+    "Grill the halloumi until golden on both sides.",
+    "Mix the vegetables with the couscous and basil.",
+    "Top with the halloumi and a squeeze of lemon."
+  ],
+  "nutrition": {
+    "calories": 640,
+    "protein": 30,
+    "carbs": 42,
+    "fat": 37
+  },
+  "tip": "Excellent served warm or cold for lunch."
+},
+
+{
+  "id": "REC014",
+  "version": 1,
+  "name": "Mediterranean Tuna Pasta",
+  "description": "Wholemeal pasta with tuna, tomatoes, olives and fresh herbs.",
+  "image": "rec014.jpg",
+  "category": "Fish",
+  "prepTime": 10,
+  "cookTime": 15,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-G605", "quantity": 160 },
+    { "ingredient": "ING-V201", "quantity": 180 },
+    { "ingredient": "ING-C975", "quantity": 40 },
+    { "ingredient": "ING-V220", "quantity": 2 },
+    { "ingredient": "ING-H001", "quantity": 10 },
+    { "ingredient": "ING-C945", "quantity": 20 },
+    { "ingredient": "ING-O801", "quantity": 1 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 }
+  ],
+  "steps": [
+    "Cook the pasta until al dente.",
+    "Heat the olive oil in a frying pan.",
+    "Cook the garlic for one minute.",
+    "Add the tomatoes and tomato purée.",
+    "Stir through the tuna and olives.",
+    "Drain the pasta and add to the sauce.",
+    "Fold through the basil.",
+    "Serve immediately."
+  ],
+  "nutrition": {
+    "calories": 525,
+    "protein": 36,
+    "carbs": 51,
+    "fat": 18
+  },
+  "tip": "Add chilli flakes for a gentle kick."
+},
+
+{
+  "id": "REC015",
+  "version": 1,
+  "name": "Lemon Garlic Prawn Orzo",
+  "description": "Light Mediterranean orzo with prawns, garlic and fresh lemon.",
+  "image": "rec015.jpg",
+  "category": "Fish",
+  "prepTime": 10,
+  "cookTime": 18,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-F325", "quantity": 220 },
+    { "ingredient": "ING-G610", "quantity": 160 },
+    { "ingredient": "ING-V220", "quantity": 3 },
+    { "ingredient": "ING-V201", "quantity": 180 },
+    { "ingredient": "ING-H005", "quantity": 10 },
+    { "ingredient": "ING-C901", "quantity": 1 },
+    { "ingredient": "ING-O801", "quantity": 1 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 }
+  ],
+  "steps": [
+    "Cook the orzo until tender.",
+    "Heat the olive oil in a large pan.",
+    "Cook the garlic until fragrant.",
+    "Add the prawns and cook until pink.",
+    "Stir in the tomatoes.",
+    "Drain the orzo and add to the pan.",
+    "Finish with parsley and lemon juice.",
+    "Serve immediately."
+  ],
+  "nutrition": {
+    "calories": 510,
+    "protein": 35,
+    "carbs": 49,
+    "fat": 17
+  },
+  "tip": "Don't overcook the prawns—they only need a few minutes."
+},
+{
+  "id": "REC016",
+  "version": 1,
+  "name": "Chicken Shawarma Bowls",
+  "description": "Middle Eastern inspired chicken served over couscous with fresh salad and yoghurt.",
+  "image": "rec016.jpg",
+  "category": "Chicken",
+  "prepTime": 15,
+  "cookTime": 20,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-M401", "quantity": 320 },
+    { "ingredient": "ING-G615", "quantity": 120 },
+    { "ingredient": "ING-D501", "quantity": 80 },
+    { "ingredient": "ING-V250", "quantity": 1 },
+    { "ingredient": "ING-V201", "quantity": 180 },
+    { "ingredient": "ING-V205", "quantity": 0.5 },
+    { "ingredient": "ING-H010", "quantity": 10 },
+    { "ingredient": "ING-S110", "quantity": 1 },
+    { "ingredient": "ING-S120", "quantity": 1 },
+    { "ingredient": "ING-S125", "quantity": 1 },
+    { "ingredient": "ING-O801", "quantity": 2 }
+  ],
+  "steps": [
+    "Mix the spices with olive oil.",
+    "Coat the chicken thoroughly.",
+    "Cook the couscous according to the packet.",
+    "Grill the chicken until cooked through.",
+    "Prepare the salad vegetables.",
+    "Slice the cooked chicken.",
+    "Assemble the bowls with couscous, salad and chicken.",
+    "Finish with Greek yoghurt and coriander."
+  ],
+  "nutrition": {
+    "calories": 560,
+    "protein": 46,
+    "carbs": 37,
+    "fat": 22
+  },
+  "tip": "Excellent for meal prep."
+},
+
+{
+  "id": "REC017",
+  "version": 1,
+  "name": "Healthy Chicken Gyros",
+  "description": "Greek-style chicken served with salad and yoghurt.",
+  "image": "rec017.jpg",
+  "category": "Chicken",
+  "prepTime": 15,
+  "cookTime": 18,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-M401", "quantity": 320 },
+    { "ingredient": "ING-D501", "quantity": 100 },
+    { "ingredient": "ING-V250", "quantity": 1 },
+    { "ingredient": "ING-V201", "quantity": 180 },
+    { "ingredient": "ING-V205", "quantity": 0.5 },
+    { "ingredient": "ING-H001", "quantity": 10 },
+    { "ingredient": "ING-C901", "quantity": 1 },
+    { "ingredient": "ING-O801", "quantity": 1 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 }
+  ],
+  "steps": [
+    "Season the chicken.",
+    "Cook until golden and fully cooked.",
+    "Prepare the salad.",
+    "Mix yoghurt with lemon and herbs.",
+    "Slice the chicken.",
+    "Warm the serving base if using.",
+    "Assemble with salad and chicken.",
+    "Drizzle over the yoghurt dressing."
+  ],
+  "nutrition": {
+    "calories": 495,
+    "protein": 47,
+    "carbs": 14,
+    "fat": 24
+  },
+  "tip": "Also works well in wraps."
+},
+
+{
+  "id": "REC018",
+  "version": 1,
+  "name": "Turkey Meatballs in Tomato Sauce",
+  "description": "Lean turkey meatballs simmered in a rich tomato sauce.",
+  "image": "rec018.jpg",
+  "category": "Turkey",
+  "prepTime": 20,
+  "cookTime": 25,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-M410", "quantity": 350 },
+    { "ingredient": "ING-D530", "quantity": 1 },
+    { "ingredient": "ING-G635", "quantity": 35 },
+    { "ingredient": "ING-V220", "quantity": 2 },
+    { "ingredient": "ING-C955", "quantity": 400 },
+    { "ingredient": "ING-H005", "quantity": 10 },
+    { "ingredient": "ING-S150", "quantity": 1 },
+    { "ingredient": "ING-O801", "quantity": 1 }
+  ],
+  "steps": [
+    "Mix the turkey, egg and breadcrumbs.",
+    "Shape into meatballs.",
+    "Brown the meatballs.",
+    "Cook the garlic.",
+    "Add the passata.",
+    "Return the meatballs to the pan.",
+    "Simmer until cooked through.",
+    "Finish with parsley."
+  ],
+  "nutrition": {
+    "calories": 520,
+    "protein": 45,
+    "carbs": 19,
+    "fat": 25
+  },
+  "tip": "Serve with wholewheat pasta."
+},
+
+{
+  "id": "REC019",
+  "version": 1,
+  "name": "Baked Feta Pasta",
+  "description": "Creamy baked feta with roasted tomatoes stirred through pasta.",
+  "image": "rec019.jpg",
+  "category": "Vegetarian",
+  "prepTime": 10,
+  "cookTime": 30,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-D505", "quantity": 200 },
+    { "ingredient": "ING-G605", "quantity": 160 },
+    { "ingredient": "ING-V201", "quantity": 250 },
+    { "ingredient": "ING-V220", "quantity": 3 },
+    { "ingredient": "ING-H001", "quantity": 10 },
+    { "ingredient": "ING-O801", "quantity": 2 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 }
+  ],
+  "steps": [
+    "Preheat the oven.",
+    "Place feta and tomatoes into a baking dish.",
+    "Add garlic and olive oil.",
+    "Bake until soft.",
+    "Cook the pasta.",
+    "Mash the feta into the tomatoes.",
+    "Stir through the cooked pasta.",
+    "Finish with basil."
+  ],
+  "nutrition": {
+    "calories": 640,
+    "protein": 24,
+    "carbs": 54,
+    "fat": 34
+  },
+  "tip": "Add spinach just before serving."
+},
+
+{
+  "id": "REC020",
+  "version": 1,
+  "name": "Spinach & Chickpea Curry",
+  "description": "A healthy, lightly spiced curry packed with chickpeas and spinach.",
+  "image": "rec020.jpg",
+  "category": "Vegetarian",
+  "prepTime": 10,
+  "cookTime": 25,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-B701", "quantity": 400 },
+    { "ingredient": "ING-V255", "quantity": 150 },
+    { "ingredient": "ING-C950", "quantity": 400 },
+    { "ingredient": "ING-V205", "quantity": 1 },
+    { "ingredient": "ING-V220", "quantity": 3 },
+    { "ingredient": "ING-S120", "quantity": 1 },
+    { "ingredient": "ING-S155", "quantity": 1 },
+    { "ingredient": "ING-O801", "quantity": 1 }
+  ],
+  "steps": [
+    "Cook the onion and garlic.",
+    "Add the spices.",
+    "Pour in the tomatoes.",
+    "Add the chickpeas.",
+    "Simmer for 15 minutes.",
+    "Stir through the spinach.",
+    "Cook until wilted.",
+    "Serve immediately."
+  ],
+  "nutrition": {
+    "calories": 430,
+    "protein": 18,
+    "carbs": 48,
+    "fat": 16
+  },
+  "tip": "Serve with brown rice for a larger meal."
+}
+,
+{
+  "id": "REC021",
+  "version": 1,
+  "name": "BBQ Mediterranean Chicken Kebabs",
+  "description": "Marinated chicken kebabs with peppers and red onion, perfect for the barbecue.",
+  "image": "rec021.jpg",
+  "category": "BBQ",
+  "prepTime": 20,
+  "cookTime": 15,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-M401", "quantity": 350 },
+    { "ingredient": "ING-V225", "quantity": 1 },
+    { "ingredient": "ING-V205", "quantity": 1 },
+    { "ingredient": "ING-H001", "quantity": 10 },
+    { "ingredient": "ING-V220", "quantity": 2 },
+    { "ingredient": "ING-C901", "quantity": 1 },
+    { "ingredient": "ING-O801", "quantity": 2 },
+    { "ingredient": "ING-S110", "quantity": 1 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 }
+  ],
+  "steps": [
+    "Cube the chicken evenly.",
+    "Mix the marinade ingredients.",
+    "Coat the chicken and chill for 30 minutes.",
+    "Thread onto skewers with peppers and onion.",
+    "Preheat the barbecue.",
+    "Cook the kebabs, turning regularly.",
+    "Ensure the chicken reaches 75°C.",
+    "Serve with salad and lemon wedges."
+  ],
+  "nutrition": {
+    "calories": 495,
+    "protein": 48,
+    "carbs": 9,
+    "fat": 25
+  },
+  "tip": "Leave a little space between each piece for even cooking."
+},
+
+{
+  "id": "REC022",
+  "version": 1,
+  "name": "Honey Mustard Salmon",
+  "description": "Oven baked salmon glazed with honey and wholegrain mustard.",
+  "image": "rec022.jpg",
+  "category": "Fish",
+  "prepTime": 10,
+  "cookTime": 18,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-F310", "quantity": 2 },
+    { "ingredient": "ING-C910", "quantity": 1 },
+    { "ingredient": "ING-C920", "quantity": 2 },
+    { "ingredient": "ING-C901", "quantity": 0.5 },
+    { "ingredient": "ING-H005", "quantity": 8 },
+    { "ingredient": "ING-O801", "quantity": 1 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 }
+  ],
+  "steps": [
+    "Preheat the oven.",
+    "Mix the honey and mustard.",
+    "Season the salmon.",
+    "Brush over the glaze.",
+    "Bake until just cooked.",
+    "Rest for two minutes.",
+    "Sprinkle with parsley.",
+    "Serve immediately."
+  ],
+  "nutrition": {
+    "calories": 515,
+    "protein": 41,
+    "carbs": 10,
+    "fat": 33
+  },
+  "tip": "Try serving with steamed broccoli."
+},
+
+{
+  "id": "REC023",
+  "version": 1,
+  "name": "Garlic Herb Pollock",
+  "description": "Lightly pan-fried pollock with garlic, parsley and lemon.",
+  "image": "rec023.jpg",
+  "category": "Fish",
+  "prepTime": 10,
+  "cookTime": 15,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-F305", "quantity": 2 },
+    { "ingredient": "ING-V220", "quantity": 3 },
+    { "ingredient": "ING-H005", "quantity": 10 },
+    { "ingredient": "ING-C901", "quantity": 1 },
+    { "ingredient": "ING-O801", "quantity": 1 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 }
+  ],
+  "steps": [
+    "Pat the fish dry.",
+    "Season both sides.",
+    "Heat the olive oil.",
+    "Cook the pollock until golden.",
+    "Add the garlic.",
+    "Finish with parsley.",
+    "Squeeze over lemon.",
+    "Serve immediately."
+  ],
+  "nutrition": {
+    "calories": 360,
+    "protein": 42,
+    "carbs": 2,
+    "fat": 18
+  },
+  "tip": "Avoid moving the fish too early so it develops a golden crust."
+},
+
+{
+  "id": "REC024",
+  "version": 1,
+  "name": "Mediterranean Stuffed Peppers",
+  "description": "Roasted peppers filled with couscous, vegetables and feta.",
+  "image": "rec024.jpg",
+  "category": "Vegetarian",
+  "prepTime": 15,
+  "cookTime": 30,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-V225", "quantity": 2 },
+    { "ingredient": "ING-G615", "quantity": 120 },
+    { "ingredient": "ING-V201", "quantity": 150 },
+    { "ingredient": "ING-V205", "quantity": 1 },
+    { "ingredient": "ING-D505", "quantity": 80 },
+    { "ingredient": "ING-H001", "quantity": 10 },
+    { "ingredient": "ING-O801", "quantity": 1 },
+    { "ingredient": "ING-S150", "quantity": 1 }
+  ],
+  "steps": [
+    "Halve the peppers.",
+    "Roast for 10 minutes.",
+    "Cook the couscous.",
+    "Cook the onion and tomatoes.",
+    "Mix with couscous and feta.",
+    "Fill the peppers.",
+    "Bake until golden.",
+    "Finish with basil."
+  ],
+  "nutrition": {
+    "calories": 470,
+    "protein": 18,
+    "carbs": 42,
+    "fat": 24
+  },
+  "tip": "These make excellent leftovers."
+},
+
+{
+  "id": "REC025",
+  "version": 1,
+  "name": "Greek Turkey Meatball Traybake",
+  "description": "Turkey meatballs baked with tomatoes, peppers and feta.",
+  "image": "rec025.jpg",
+  "category": "Turkey",
+  "prepTime": 20,
+  "cookTime": 30,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-M410", "quantity": 350 },
+    { "ingredient": "ING-D530", "quantity": 1 },
+    { "ingredient": "ING-G635", "quantity": 35 },
+    { "ingredient": "ING-V225", "quantity": 1 },
+    { "ingredient": "ING-V201", "quantity": 200 },
+    { "ingredient": "ING-D505", "quantity": 70 },
+    { "ingredient": "ING-H005", "quantity": 10 },
+    { "ingredient": "ING-O801", "quantity": 1 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 }
+  ],
+  "steps": [
+    "Mix the turkey, egg and breadcrumbs.",
+    "Shape into meatballs.",
+    "Arrange in a baking dish.",
+    "Add the vegetables.",
+    "Drizzle with olive oil.",
+    "Bake until cooked through.",
+    "Scatter over feta.",
+    "Finish with parsley before serving."
+  ],
+  "nutrition": {
+    "calories": 555,
+    "protein": 47,
+    "carbs": 17,
+    "fat": 29
+  },
+  "tip": "Serve with a simple green salad."
+}
+,
+{
+  "id": "REC026",
+  "version": 1,
+  "name": "Mediterranean Chicken & Bean Skillet",
+  "description": "Chicken breast cooked with cannellini beans, tomatoes and fresh herbs in one pan.",
+  "image": "rec026.jpg",
+  "category": "Chicken",
+  "prepTime": 10,
+  "cookTime": 25,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-M401", "quantity": 320 },
+    { "ingredient": "ING-B705", "quantity": 400 },
+    { "ingredient": "ING-V201", "quantity": 180 },
+    { "ingredient": "ING-V220", "quantity": 2 },
+    { "ingredient": "ING-H001", "quantity": 10 },
+    { "ingredient": "ING-C945", "quantity": 20 },
+    { "ingredient": "ING-O801", "quantity": 1 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 }
+  ],
+  "steps": [
+    "Season the chicken.",
+    "Brown in olive oil.",
+    "Add the garlic.",
+    "Stir in the tomatoes and tomato purée.",
+    "Add the cannellini beans.",
+    "Simmer until the chicken is cooked.",
+    "Finish with basil.",
+    "Serve straight from the pan."
+  ],
+  "nutrition": {
+    "calories": 535,
+    "protein": 49,
+    "carbs": 30,
+    "fat": 21
+  },
+  "tip": "Great with crusty wholemeal bread."
+},
+
+{
+  "id": "REC027",
+  "version": 1,
+  "name": "Smoky Cod & Butter Bean Stew",
+  "description": "A hearty Mediterranean fish stew with butter beans and smoked paprika.",
+  "image": "rec027.jpg",
+  "category": "Fish",
+  "prepTime": 10,
+  "cookTime": 25,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-F301", "quantity": 2 },
+    { "ingredient": "ING-B710", "quantity": 400 },
+    { "ingredient": "ING-C950", "quantity": 400 },
+    { "ingredient": "ING-V205", "quantity": 1 },
+    { "ingredient": "ING-V220", "quantity": 2 },
+    { "ingredient": "ING-H005", "quantity": 10 },
+    { "ingredient": "ING-S110", "quantity": 1 },
+    { "ingredient": "ING-O801", "quantity": 1 }
+  ],
+  "steps": [
+    "Cook the onion and garlic.",
+    "Add the smoked paprika.",
+    "Pour in the tomatoes.",
+    "Add the butter beans.",
+    "Simmer for 15 minutes.",
+    "Nestle in the cod.",
+    "Cook until the fish flakes.",
+    "Finish with parsley."
+  ],
+  "nutrition": {
+    "calories": 465,
+    "protein": 39,
+    "carbs": 33,
+    "fat": 16
+  },
+  "tip": "A squeeze of lemon lifts the flavours."
+},
+
+{
+  "id": "REC028",
+  "version": 1,
+  "name": "Mediterranean Rice Bowl",
+  "description": "Brown rice topped with roasted vegetables, chickpeas and feta.",
+  "image": "rec028.jpg",
+  "category": "Vegetarian",
+  "prepTime": 15,
+  "cookTime": 30,
+  "serves": 2,
+  "difficulty": "Easy",
+  "ingredients": [
+    { "ingredient": "ING-G625", "quantity": 150 },
+    { "ingredient": "ING-B701", "quantity": 250 },
+    { "ingredient": "ING-V225", "quantity": 1 },
+    { "ingredient": "ING-V240", "quantity": 1 },
+    { "ingredient": "ING-V201", "quantity": 180 },
+    { "ingredient": "ING-D505", "quantity": 70 },
+    { "ingredient": "ING-H001", "quantity": 10 },
+    { "ingredient": "ING-O801", "quantity": 2 },
+    { "ingredient": "ING-S101", "quantity": 1 }
+  ],
+  "steps": [
+    "Cook the brown rice.",
+    "Roast the vegetables.",
+    "Warm the chickpeas.",
+    "Season everything well.",
+    "Divide the rice between bowls.",
+    "Top with vegetables.",
+    "Scatter over feta.",
+    "Finish with basil and olive oil."
+  ],
+  "nutrition": {
+    "calories": 515,
+    "protein": 19,
+    "carbs": 58,
+    "fat": 21
+  },
+  "tip": "Ideal for packed lunches."
+},
+
+{
+  "id": "REC029",
+  "version": 1,
+  "name": "Lemon Dill Fish Cakes",
+  "description": "Light fish cakes flavoured with fresh dill and lemon.",
+  "image": "rec029.jpg",
+  "category": "Fish",
+  "prepTime": 20,
+  "cookTime": 15,
+  "serves": 2,
+  "difficulty": "Medium",
+  "ingredients": [
+    { "ingredient": "ING-F305", "quantity": 350 },
+    { "ingredient": "ING-D530", "quantity": 1 },
+    { "ingredient": "ING-G640", "quantity": 40 },
+    { "ingredient": "ING-H015", "quantity": 10 },
+    { "ingredient": "ING-C901", "quantity": 1 },
+    { "ingredient": "ING-V220", "quantity": 2 },
+    { "ingredient": "ING-O801", "quantity": 1 },
+    { "ingredient": "ING-S101", "quantity": 1 }
+  ],
+  "steps": [
+    "Blend the fish.",
+    "Mix with egg and breadcrumbs.",
+    "Add dill and lemon zest.",
+    "Shape into fish cakes.",
+    "Chill for 15 minutes.",
+    "Pan fry until golden.",
+    "Turn carefully.",
+    "Serve hot with salad."
+  ],
+  "nutrition": {
+    "calories": 430,
+    "protein": 44,
+    "carbs": 16,
+    "fat": 19
+  },
+  "tip": "Serve with Greek yoghurt."
+},
+
+{
+  "id": "REC030",
+  "version": 1,
+  "name": "Will's Grill Mediterranean BBQ Platter",
+  "description": "A mixed barbecue platter of chicken, halloumi and grilled vegetables.",
+  "image": "rec030.jpg",
+  "category": "BBQ",
+  "prepTime": 25,
+  "cookTime": 20,
+  "serves": 4,
+  "difficulty": "Medium",
+  "ingredients": [
+    { "ingredient": "ING-M401", "quantity": 400 },
+    { "ingredient": "ING-D510", "quantity": 225 },
+    { "ingredient": "ING-V225", "quantity": 2 },
+    { "ingredient": "ING-V230", "quantity": 2 },
+    { "ingredient": "ING-V240", "quantity": 2 },
+    { "ingredient": "ING-V205", "quantity": 1 },
+    { "ingredient": "ING-H001", "quantity": 15 },
+    { "ingredient": "ING-C901", "quantity": 1 },
+    { "ingredient": "ING-O801", "quantity": 2 },
+    { "ingredient": "ING-S101", "quantity": 1 },
+    { "ingredient": "ING-S105", "quantity": 1 }
+  ],
+  "steps": [
+    "Prepare all the vegetables.",
+    "Season and cube the chicken.",
+    "Slice the halloumi.",
+    "Heat the barbecue.",
+    "Cook the chicken until fully cooked.",
+    "Grill the vegetables and halloumi.",
+    "Arrange everything onto a serving platter.",
+    "Finish with basil and fresh lemon."
+  ],
+  "nutrition": {
+    "calories": 610,
+    "protein": 42,
+    "carbs": 18,
+    "fat": 39
+  },
+  "tip": "Perfect for sharing outdoors."
+}
+]
