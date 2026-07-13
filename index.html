@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Will's Grill Studio</title>
+    <title>Recipe Manager</title>
 
     <link rel="stylesheet" href="assets/css/style.css">
 
@@ -19,10 +19,10 @@
     <aside class="sidebar">
 
         <div class="brand">
-
-            <h1>Will's Grill</h1>
-
-            <span>Studio</span>
+            <img class="brand-logo"
+                 src="https://willsgrill.github.io/Wills-Grill/assets/images/logo.jpg"
+                 alt="Will's Grill">
+            <span>Recipe Manager</span>
 
         </div>
 
@@ -40,8 +40,8 @@
                 Ingredients
             </a>
 
-            <a href="pages/image-converter.html">
-                Image Converter
+            <a href="pages/export.html">
+                Export
             </a>
 
         </nav>
@@ -55,14 +55,14 @@
             <h2>Dashboard</h2>
 
             <p>
-                Welcome to Will's Grill Studio.
+                Welcome to Recipe Manager.
             </p>
 
         </header>
 
         <section class="dashboard-grid">
 
-            <div class="card">
+            <a href="pages/recipes.html" class="card">
 
                 <h3>Recipes</h3>
 
@@ -72,9 +72,9 @@
 
                 <p>Manage all recipes.</p>
 
-            </div>
+            </a>
 
-            <div class="card">
+            <a href="pages/ingredients.html" class="card">
 
                 <h3>Ingredients</h3>
 
@@ -84,19 +84,7 @@
 
                 <p>Manage ingredients.</p>
 
-            </div>
-
-            <div class="card">
-
-                <h3>Images</h3>
-
-                <div class="stat">
-                    📷
-                </div>
-
-                <p>Manage recipe images.</p>
-
-            </div>
+            </a>
 
         </section>
 

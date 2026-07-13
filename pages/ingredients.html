@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Ingredients | Will's Grill Studio</title>
+    <title>Ingredients | Recipe Manager</title>
 
     <link rel="stylesheet" href="../assets/css/style.css">
 
@@ -19,9 +19,10 @@
     <aside class="sidebar">
 
         <div class="brand">
-
-            <h1>Will's Grill</h1>
-            <span>Studio</span>
+            <img class="brand-logo"
+                 src="https://willsgrill.github.io/Wills-Grill/assets/images/logo.jpg"
+                 alt="Will's Grill">
+            <span>Recipe Manager</span>
 
         </div>
 
@@ -33,7 +34,7 @@
 
             <a href="ingredients.html" class="active">Ingredients</a>
 
-            <a href="image-converter.html">Image Converter</a>
+            <a href="export.html">Export</a>
 
         </nav>
 
@@ -62,8 +63,17 @@
 
         <div class="toolbar">
 
-            <input id="ingredientSearch" placeholder="Search ingredients...">
-                <input id="ingredientSearch" class="table-search" type="search" placeholder="Search ingredients...">
+            <input id="ingredientSearch" class="table-search" type="search" placeholder="Search ingredients...">
+            <select id="ingredientCategoryFilter" class="table-filter">
+                <option value="">All categories</option>
+            </select>
+            <select id="ingredientSort" class="table-filter">
+                <option value="name-asc">Name A–Z</option>
+                <option value="name-desc">Name Z–A</option>
+                <option value="id-asc">ID ascending</option>
+                <option value="id-desc">ID descending</option>
+                <option value="category-asc">Category A–Z</option>
+            </select>
             <button id="exportIngredientsButton" class="secondary-button">Export JSON</button>
 
         </div>
@@ -82,7 +92,7 @@
 
                     <th>Unit</th>
 
-                    <th>Edit</th>
+                    <th>Actions</th>
 
                 </tr>
 
@@ -101,7 +111,7 @@
 <aside id="ingredientEditorPanel" class="editor-panel">
     <div class="editor-header">
         <h2>Edit Ingredient</h2>
-        <button id="closeIngredientEditor">✕</button>
+        <button id="closeIngredientEditor" type="button" aria-label="Close ingredient editor">✕</button>
     </div>
     <div class="editor-body">
         <div id="ingredientEditorContent">

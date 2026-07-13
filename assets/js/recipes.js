@@ -5,8 +5,24 @@ let ingredients = [];
 let currentRecipe = null;
 let editingRecipeId = null;
 let activeEditorTab = "general";
+let recipeSearchText = "";
+let recipeCategoryFilter = "";
+let recipeSortKey = "name-asc";
+let pendingRecipeImage = null;
+
+const RECIPES_DRAFT_KEY = "willsgrill-recipes-draft";
+const INGREDIENTS_DRAFT_KEY = "willsgrill-ingredients-draft";
+const METHOD_STEP_COUNT = 8;
+const RECIPE_CATEGORIES = ["BBQ", "Chicken", "Fish", "Turkey", "Vegetarian"];
+const RECIPE_DIFFICULTIES = ["Easy", "Medium", "Hard"];
 
 document.addEventListener("DOMContentLoaded", initialiseRecipesPage);
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && document.getElementById("editorPanel")?.classList.contains("open")) {
+        closeEditor();
+    }
+});
 
 function initialiseRecipesPage() {
 
@@ -14,9 +30,28 @@ function initialiseRecipesPage() {
     const newRecipeButton = document.getElementById("newRecipeButton");
     const closeEditorButton = document.getElementById("closeEditor");
     const exportRecipesButton = document.getElementById("exportRecipesButton");
+    const categoryFilter = document.getElementById("recipeCategoryFilter");
+    const sortSelect = document.getElementById("recipeSort");
 
     if (searchInput) {
-        searchInput.addEventListener("input", () => renderRecipeTable(searchInput.value));
+        searchInput.addEventListener("input", () => {
+            recipeSearchText = searchInput.value;
+            renderRecipeTable();
+        });
+    }
+
+    if (categoryFilter) {
+        categoryFilter.addEventListener("change", () => {
+            recipeCategoryFilter = categoryFilter.value;
+            renderRecipeTable();
+        });
+    }
+
+    if (sortSelect) {
+        sortSelect.addEventListener("change", () => {
+            recipeSortKey = sortSelect.value;
+            renderRecipeTable();
+        });
     }
 
     if (newRecipeButton) {
@@ -28,7 +63,7 @@ function initialiseRecipesPage() {
     }
 
     if (exportRecipesButton) {
-        exportRecipesButton.addEventListener("click", () => exportJSON(CONFIG.recipesFile, "recipes.json"));
+        exportRecipesButton.addEventListener("click", exportCurrentRecipes);
     }
 
     document.querySelectorAll(".tab").forEach((tab) => {
@@ -50,9 +85,15 @@ async function loadRecipeData() {
             loadJSON(CONFIG.ingredientsFile)
         ]);
 
-        recipes = Array.isArray(recipeData) ? recipeData : [];
-        ingredients = Array.isArray(ingredientData) ? ingredientData : [];
+        if (!Array.isArray(recipeData) || !Array.isArray(ingredientData)) {
+            throw new Error("Website data must contain recipe and ingredient arrays.");
+        }
 
+        recipes = readDraft(RECIPES_DRAFT_KEY, recipeData).map(normalizeRecipeSteps);
+        ingredients = readDraft(INGREDIENTS_DRAFT_KEY, ingredientData);
+        saveDraft(RECIPES_DRAFT_KEY, recipes);
+
+        populateRecipeCategoryFilter();
         renderRecipeTable();
 
     }
@@ -82,33 +123,55 @@ async function loadJSON(path) {
 
 }
 
-async function exportJSON(path, filename) {
-    try {
-        const data = await loadJSON(path);
-        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const anchor = document.createElement("a");
-        anchor.href = url;
-        anchor.download = filename;
-        document.body.appendChild(anchor);
-        anchor.click();
-        document.body.removeChild(anchor);
-        URL.revokeObjectURL(url);
+function exportCurrentRecipes() {
+    const validationError = validateRecipeCollection(recipes);
+
+    if (validationError) {
+        alert(`Recipes cannot be exported: ${validationError}`);
+        return;
     }
-    catch (error) {
-        console.error(error);
-        alert("Unable to export JSON. Check the console for details.");
-    }
+
+    downloadRecipeFile(recipes);
 }
 
-function renderRecipeTable(searchText = "") {
+function validateRecipeCollection(recipeList) {
+    const recipeIds = new Set();
+
+    for (const recipe of recipeList) {
+        if (!recipe.id) return "A recipe is missing an ID.";
+        if (recipeIds.has(recipe.id)) return `Duplicate recipe ID: ${recipe.id}.`;
+        recipeIds.add(recipe.id);
+
+        if (recipe.image && !/^rec\d{3}\.jpg$/i.test(recipe.image)) {
+            return `Invalid image filename on ${recipe.id}: ${recipe.image}.`;
+        }
+
+        if (!Array.isArray(recipe.steps) || recipe.steps.length !== METHOD_STEP_COUNT || recipe.steps.some((step) => !String(step).trim())) {
+            return `${recipe.id} needs exactly ${METHOD_STEP_COUNT} completed method steps.`;
+        }
+
+        for (const row of recipe.ingredients || []) {
+            if (!ingredients.some((ingredient) => ingredient.id === row.ingredient)) {
+                return `${recipe.id} references missing ingredient ${row.ingredient}.`;
+            }
+        }
+    }
+
+    return "";
+}
+
+function renderRecipeTable() {
 
     const tableBody = document.getElementById("recipeTable");
 
     if (!tableBody) return;
 
-    const query = searchText.trim().toLowerCase();
+    const query = recipeSearchText.trim().toLowerCase();
     const visibleRecipes = recipes.filter((recipe) => {
+
+        if (recipeCategoryFilter && recipe.category !== recipeCategoryFilter) {
+            return false;
+        }
 
         if (!query) return true;
 
@@ -123,6 +186,8 @@ function renderRecipeTable(searchText = "") {
         return recipeIngredientsMatch(recipe, query);
 
     });
+
+    visibleRecipes.sort(compareRecipes);
 
     if (!visibleRecipes.length) {
         tableBody.innerHTML = '<tr><td colspan="9" class="empty-state">No recipes found.</td></tr>';
@@ -139,9 +204,10 @@ function renderRecipeTable(searchText = "") {
             <td>${escapeHtml(recipe.serves || "")}</td>
             <td>${escapeHtml(recipe.image || "")}</td>
             <td class="edit-action">
-                <button type="button" class="secondary-button" data-action="edit-recipe" data-recipe-id="${escapeHtml(recipe.id || "")}">
-                    Edit
-                </button>
+                <div class="table-actions">
+                    <button type="button" class="secondary-button table-action-button" data-action="edit-recipe" data-recipe-id="${escapeHtml(recipe.id || "")}">Edit</button>
+                    <button type="button" class="danger-button table-action-button" data-action="delete-recipe" data-recipe-id="${escapeHtml(recipe.id || "")}">Delete</button>
+                </div>
             </td>
         </tr>
     `).join("");
@@ -150,10 +216,35 @@ function renderRecipeTable(searchText = "") {
         button.addEventListener("click", () => openEditor(findRecipeById(button.getAttribute("data-recipe-id"))));
     });
 
+    tableBody.querySelectorAll("[data-action='delete-recipe']").forEach((button) => {
+        button.addEventListener("click", () => deleteRecipe(button.getAttribute("data-recipe-id")));
+    });
+
+}
+
+function populateRecipeCategoryFilter() {
+    const categoryFilter = document.getElementById("recipeCategoryFilter");
+    if (!categoryFilter) return;
+
+    const categories = [...new Set(recipes.map((recipe) => recipe.category).filter(Boolean))]
+        .sort((first, second) => first.localeCompare(second));
+
+    categoryFilter.innerHTML = '<option value="">All categories</option>' + categories
+        .map((category) => `<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`)
+        .join("");
+    categoryFilter.value = recipeCategoryFilter;
+}
+
+function compareRecipes(firstRecipe, secondRecipe) {
+    const [field, direction] = recipeSortKey.split("-");
+    const firstValue = String(firstRecipe[field] || "").toLowerCase();
+    const secondValue = String(secondRecipe[field] || "").toLowerCase();
+    const result = firstValue.localeCompare(secondValue, undefined, { numeric: true });
+    return direction === "desc" ? -result : result;
 }
 
 function recipeIngredientsMatch(recipe, query) {
-    const ingredientReferences = recipe.ingredients
+    const ingredientReferences = (recipe.ingredients || [])
         .map((item) => (item.ingredient || "").toString().toLowerCase())
         .filter(Boolean);
 
@@ -177,7 +268,7 @@ function recipeIngredientsMatch(recipe, query) {
 function createBlankRecipe() {
 
     return {
-        id: "",
+        id: generateRecipeId(),
         version: 1,
         name: "",
         description: "",
@@ -188,7 +279,7 @@ function createBlankRecipe() {
         serves: "",
         difficulty: "",
         ingredients: [{ ingredient: "", quantity: "" }],
-        steps: [""],
+        steps: Array(METHOD_STEP_COUNT).fill(""),
         nutrition: {
             calories: "",
             protein: "",
@@ -200,13 +291,41 @@ function createBlankRecipe() {
 
 }
 
+function generateRecipeId() {
+    const usedNumbers = new Set(
+        recipes
+            .map((recipe) => (recipe.id || "").match(/^REC(\d+)$/i))
+            .filter(Boolean)
+            .map((match) => Number(match[1]))
+    );
+
+    let number = 1;
+    while (usedNumbers.has(number)) number += 1;
+    return `REC${String(number).padStart(3, "0")}`;
+}
+
+function deleteRecipe(recipeId) {
+    const recipe = findRecipeById(recipeId);
+    if (!recipe || !recipe.id) return;
+
+    if (!confirm(`Delete ${recipe.name || recipe.id}? This change will be included in the next export.`)) return;
+
+    recipes = recipes.filter((item) => item.id !== recipe.id);
+    saveDraft(RECIPES_DRAFT_KEY, recipes);
+    if (!recipes.some((item) => item.image === recipe.image)) {
+        removeChangedRecipeImage(recipe.image);
+    }
+    renderRecipeTable();
+}
+
 function openEditor(recipe) {
 
     if (!recipe) return;
 
-    currentRecipe = cloneRecipe(recipe);
+    currentRecipe = normalizeRecipeSteps(cloneRecipe(recipe));
     editingRecipeId = recipe.id || null;
     activeEditorTab = "general";
+    pendingRecipeImage = null;
     renderEditor();
 
     const editorPanel = document.getElementById("editorPanel");
@@ -229,7 +348,24 @@ function closeEditor() {
     currentRecipe = null;
     editingRecipeId = null;
     activeEditorTab = "general";
+    pendingRecipeImage = null;
 
+}
+
+function duplicateCurrentRecipe() {
+    const recipe = collectRecipeFromForm();
+    if (!recipe) return;
+
+    const duplicate = cloneRecipe(recipe);
+    duplicate.id = generateRecipeId();
+    duplicate.name = `${recipe.name || "Recipe"} Copy`;
+    duplicate.image = "";
+    editingRecipeId = null;
+    currentRecipe = duplicate;
+    activeEditorTab = "general";
+    renderEditor();
+    updateActiveTab();
+    showEditorFeedback("Recipe duplicated. Add a new image, then save it as a new recipe.", false);
 }
 
 function renderEditor() {
@@ -245,7 +381,7 @@ function renderEditor() {
                 <div class="field-grid">
                     <label>
                         Recipe ID
-                        <input id="recipeId" value="${escapeHtml(currentRecipe.id || "")}" required>
+                        <input id="recipeId" value="${escapeHtml(currentRecipe.id || "")}" readonly required>
                     </label>
                     <label>
                         Name
@@ -257,7 +393,9 @@ function renderEditor() {
                     </label>
                     <label>
                         Category
-                        <input id="recipeCategory" value="${escapeHtml(currentRecipe.category || "")}" required>
+                        <select id="recipeCategory" required>
+                            ${renderRecipeChoiceOptions(RECIPE_CATEGORIES, currentRecipe.category)}
+                        </select>
                     </label>
                     <label>
                         Prep Time
@@ -273,7 +411,9 @@ function renderEditor() {
                     </label>
                     <label>
                         Difficulty
-                        <input id="recipeDifficulty" value="${escapeHtml(currentRecipe.difficulty || "")}" required>
+                        <select id="recipeDifficulty" required>
+                            ${renderRecipeChoiceOptions(RECIPE_DIFFICULTIES, currentRecipe.difficulty)}
+                        </select>
                     </label>
                     <label class="full-width">
                         Chef's Tip
@@ -304,7 +444,7 @@ function renderEditor() {
             <div class="editor-section ${activeEditorTab === "method" ? "visible" : "hidden"}" data-tab="method">
                 <div class="section-header">
                     <h3>Method</h3>
-                    <button type="button" class="secondary-button" data-action="add-step">+ Add Step</button>
+                    <span class="field-help">8 steps required</span>
                 </div>
                 <div id="methodRows">
                     ${renderMethodRows(currentRecipe.steps || [])}
@@ -338,13 +478,22 @@ function renderEditor() {
                 <div class="field-grid">
                     <label class="full-width">
                         Image Filename
-                        <input id="recipeImage" value="${escapeHtml(currentRecipe.image || "")}">
+                        <input id="recipeImage" value="${escapeHtml(currentRecipe.image || "")}" readonly>
                     </label>
+                    <label class="full-width">
+                        Upload Image
+                        <input id="recipeImageFile" type="file" accept="image/*">
+                        <span class="field-help">The image will be converted to a web-friendly JPEG and named automatically, for example rec001.jpg.</span>
+                    </label>
+                    <div id="recipeImagePreview" class="recipe-image-upload-preview ${currentRecipe.image ? "has-image" : ""}">
+                        ${currentRecipe.image ? `<span>Current image: ${escapeHtml(currentRecipe.image)}</span>` : "Select an image to convert it."}
+                    </div>
                 </div>
             </div>
 
             <div class="editor-actions">
                 <button type="submit" class="primary-button">Save</button>
+                <button type="button" class="secondary-button" id="duplicateRecipeButton">Duplicate</button>
                 <button type="button" class="secondary-button" id="downloadRecipeJson">Download JSON</button>
             </div>
 
@@ -359,13 +508,31 @@ function renderEditor() {
     }
 
     const downloadButton = document.getElementById("downloadRecipeJson");
+    const duplicateButton = document.getElementById("duplicateRecipeButton");
 
     if (downloadButton) {
         downloadButton.addEventListener("click", () => {
             const recipeToDownload = collectRecipeFromForm();
             if (!recipeToDownload) return;
+
+            const validationError = validateRecipe(recipeToDownload);
+            if (validationError) {
+                showEditorFeedback(validationError, true);
+                return;
+            }
+
             downloadRecipeFile(recipeToDownload);
         });
+    }
+
+    if (duplicateButton) {
+        duplicateButton.addEventListener("click", duplicateCurrentRecipe);
+    }
+
+    const imageFileInput = document.getElementById("recipeImageFile");
+
+    if (imageFileInput) {
+        imageFileInput.addEventListener("change", handleRecipeImageSelection);
     }
 
     attachEditorListHandlers();
@@ -381,19 +548,26 @@ function renderIngredientRows(ingredientRows) {
     return ingredientRows.map((row, index) => `
         <tr>
             <td>
-                <input
-                    type="search"
-                    class="ingredient-search-input"
-                    placeholder="Search ingredients..."
-                    list="ingredientOptions-${index}"
-                    data-field="ingredient"
-                    data-index="${index}"
-                    value="${escapeHtml(getIngredientDisplayValue(row.ingredient))}">
-                <datalist id="ingredientOptions-${index}">
-                    ${ingredients.map((ingredient) => `
-                        <option value="${escapeHtml(ingredient.name || ingredient.id || "")}" label="${escapeHtml(ingredient.id || "")}"></option>
-                    `).join("")}
-                </datalist>
+                <div class="ingredient-picker">
+                    <input type="search"
+                           class="ingredient-search-input"
+                           data-field="ingredient"
+                           data-index="${index}"
+                           data-ingredient-id="${escapeHtml(row.ingredient || "")}"
+                           value="${escapeHtml(getIngredientDisplayValue(row.ingredient))}"
+                           placeholder="Search ingredients..."
+                           autocomplete="off"
+                           aria-label="Ingredient ${index + 1}"
+                           aria-expanded="false">
+                    <div class="ingredient-options" hidden>
+                        ${ingredients.map((ingredient) => `
+                            <button type="button" data-ingredient-id="${escapeHtml(ingredient.id || "")}">
+                                <strong>${escapeHtml(ingredient.name || ingredient.id || "")}</strong>
+                                <span>${escapeHtml(ingredient.id || "")}</span>
+                            </button>
+                        `).join("")}
+                    </div>
+                </div>
             </td>
             <td>
                 <input type="text" inputmode="decimal" data-field="quantity" data-index="${index}" value="${escapeHtml(row.quantity || "")}">
@@ -412,17 +586,179 @@ function getIngredientDisplayValue(ingredientId) {
     return ingredient.name || ingredient.id || "";
 }
 
+async function handleRecipeImageSelection(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const preview = document.getElementById("recipeImagePreview");
+    const imageField = document.getElementById("recipeImage");
+    const filename = getNextRecipeImageFilename();
+
+    try {
+        if (preview) preview.textContent = "Converting image...";
+
+        const image = await loadRecipeImage(file);
+        const jpegBlob = await convertRecipeImageToJpeg(image);
+
+        if (imageField) imageField.value = filename;
+        if (currentRecipe) currentRecipe.image = filename;
+
+        pendingRecipeImage = { filename, blob: jpegBlob };
+        downloadRecipeImage(jpegBlob, filename);
+
+        if (preview) {
+            preview.innerHTML = `<strong>${escapeHtml(filename)}</strong><span>Converted JPEG downloaded.</span>`;
+            preview.classList.add("has-image");
+        }
+    }
+    catch (error) {
+        console.error(error);
+        if (preview) preview.textContent = "Unable to convert this image.";
+    }
+}
+
+function getNextRecipeImageFilename() {
+    if (currentRecipe?.image) {
+        return currentRecipe.image;
+    }
+
+    const highestNumber = recipes.reduce((highest, recipe) => {
+        const match = (recipe.image || "").match(/^rec(\d+)\.jpg$/i);
+        return match ? Math.max(highest, Number(match[1])) : highest;
+    }, 0);
+
+    return `rec${String(highestNumber + 1).padStart(3, "0")}.jpg`;
+}
+
+function loadRecipeImage(file) {
+    return new Promise((resolve, reject) => {
+        const objectUrl = URL.createObjectURL(file);
+        const image = new Image();
+
+        image.onload = () => {
+            URL.revokeObjectURL(objectUrl);
+            resolve(image);
+        };
+        image.onerror = () => {
+            URL.revokeObjectURL(objectUrl);
+            reject(new Error(`Unable to read ${file.name}`));
+        };
+        image.src = objectUrl;
+    });
+}
+
+function convertRecipeImageToJpeg(image) {
+    return new Promise((resolve, reject) => {
+        const canvas = document.createElement("canvas");
+        canvas.width = image.naturalWidth;
+        canvas.height = image.naturalHeight;
+
+        const context = canvas.getContext("2d");
+        if (!context) {
+            reject(new Error("Canvas is not supported by this browser."));
+            return;
+        }
+
+        context.fillStyle = "#ffffff";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(image, 0, 0);
+        canvas.toBlob((blob) => {
+            blob ? resolve(blob) : reject(new Error("Unable to create JPEG."));
+        }, "image/jpeg", .88);
+    });
+}
+
+function downloadRecipeImage(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+}
+
+function saveChangedRecipeImage(filename, blob) {
+    return new Promise((resolve, reject) => {
+        if (!window.indexedDB) {
+            resolve();
+            return;
+        }
+
+        const request = indexedDB.open("willsgrill-editor", 1);
+
+        request.onupgradeneeded = () => {
+            request.result.createObjectStore("changed-images", { keyPath: "filename" });
+        };
+
+        request.onsuccess = () => {
+            const database = request.result;
+            const transaction = database.transaction("changed-images", "readwrite");
+            transaction.objectStore("changed-images").put({ filename, blob });
+            transaction.oncomplete = () => {
+                database.close();
+                resolve();
+            };
+            transaction.onerror = () => {
+                database.close();
+                reject(transaction.error);
+            };
+        };
+
+        request.onerror = () => reject(request.error);
+    });
+}
+
+function removeChangedRecipeImage(filename) {
+    if (!filename || !window.indexedDB) return;
+
+    const request = indexedDB.open("willsgrill-editor", 1);
+    request.onsuccess = () => {
+        const database = request.result;
+        const transaction = database.transaction("changed-images", "readwrite");
+        transaction.objectStore("changed-images").delete(filename);
+        transaction.oncomplete = () => database.close();
+    };
+}
+
+function readDraft(key, fallback) {
+    try {
+        const draft = JSON.parse(localStorage.getItem(key));
+        return Array.isArray(draft) ? draft : (Array.isArray(fallback) ? fallback : []);
+    }
+    catch (error) {
+        return Array.isArray(fallback) ? fallback : [];
+    }
+}
+
+function saveDraft(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+}
+
+function normalizeRecipeSteps(recipe) {
+    const steps = Array.isArray(recipe.steps) ? recipe.steps : [];
+
+    return {
+        ...recipe,
+        steps: Array.from({ length: METHOD_STEP_COUNT }, (_, index) => String(steps[index] || ""))
+    };
+}
+
+function renderRecipeChoiceOptions(options, selectedValue) {
+    return `<option value="">Select an option</option>${options.map((option) => `
+        <option value="${escapeHtml(option)}" ${option === selectedValue ? "selected" : ""}>${escapeHtml(option)}</option>
+    `).join("")}`;
+}
+
 function renderMethodRows(steps) {
 
-    if (!steps.length) {
-        steps = [""];
-    }
+    steps = normalizeRecipeSteps({ steps }).steps;
 
     return steps.map((step, index) => `
         <div class="method-row">
             <div class="method-label">Step ${index + 1}</div>
             <textarea data-field="step" data-index="${index}" rows="3">${escapeHtml(step)}</textarea>
-            <button type="button" class="secondary-button" data-action="remove-step" data-index="${index}">Delete Step</button>
         </div>
     `).join("");
 
@@ -436,6 +772,58 @@ function attachEditorListHandlers() {
 
     editorContent.querySelectorAll("[data-action]").forEach((button) => {
         button.addEventListener("click", handleEditorAction);
+    });
+
+    editorContent.querySelectorAll(".ingredient-picker").forEach(attachIngredientPicker);
+
+}
+
+function attachIngredientPicker(picker) {
+
+    const input = picker.querySelector(".ingredient-search-input");
+    const options = picker.querySelector(".ingredient-options");
+    if (!input || !options) return;
+
+    const optionButtons = Array.from(options.querySelectorAll("button"));
+
+    const showOptions = () => {
+        options.hidden = false;
+        input.setAttribute("aria-expanded", "true");
+        filterIngredientOptions(input, optionButtons);
+    };
+
+    input.addEventListener("focus", showOptions);
+    input.addEventListener("input", () => {
+        input.dataset.ingredientId = "";
+        showOptions();
+    });
+
+    optionButtons.forEach((button) => {
+        button.addEventListener("mousedown", (event) => event.preventDefault());
+        button.addEventListener("click", () => {
+            input.value = button.querySelector("strong")?.textContent || "";
+            input.dataset.ingredientId = button.dataset.ingredientId || "";
+            options.hidden = true;
+            input.setAttribute("aria-expanded", "false");
+        });
+    });
+
+    input.addEventListener("blur", () => {
+        window.setTimeout(() => {
+            options.hidden = true;
+            input.setAttribute("aria-expanded", "false");
+        }, 120);
+    });
+
+}
+
+function filterIngredientOptions(input, optionButtons) {
+
+    const query = input.value.trim().toLowerCase();
+
+    optionButtons.forEach((button) => {
+        const text = button.textContent.toLowerCase();
+        button.hidden = query && !text.includes(query);
     });
 
 }
@@ -470,15 +858,6 @@ function handleEditorAction(event) {
         return;
     }
 
-    if (action === "add-step") {
-        addMethodStep();
-        return;
-    }
-
-    if (action === "remove-step") {
-        removeMethodStep(Number(button.getAttribute("data-index")));
-    }
-
 }
 
 function addIngredientRow() {
@@ -499,27 +878,6 @@ function removeIngredientRow(index) {
     }
 
     renderIngredientSection();
-
-}
-
-function addMethodStep() {
-
-    if (!currentRecipe) return;
-    currentRecipe.steps.push("");
-    renderMethodSection();
-
-}
-
-function removeMethodStep(index) {
-
-    if (!currentRecipe) return;
-    currentRecipe.steps.splice(index, 1);
-
-    if (!currentRecipe.steps.length) {
-        currentRecipe.steps = [""];
-    }
-
-    renderMethodSection();
 
 }
 
@@ -545,7 +903,7 @@ function renderMethodSection() {
 
 }
 
-function handleRecipeSave(event) {
+async function handleRecipeSave(event) {
 
     event.preventDefault();
 
@@ -573,6 +931,20 @@ function handleRecipeSave(event) {
         recipes.unshift(recipe);
     }
 
+    saveDraft(RECIPES_DRAFT_KEY, recipes);
+    if (pendingRecipeImage) {
+        try {
+            await saveChangedRecipeImage(pendingRecipeImage.filename, pendingRecipeImage.blob);
+        }
+        catch (error) {
+            console.error(error);
+            showEditorFeedback("Recipe saved, but the converted image could not be staged for ZIP export.", true);
+            currentRecipe = recipe;
+            renderRecipeTable();
+            return;
+        }
+    }
+    pendingRecipeImage = null;
     currentRecipe = recipe;
     renderRecipeTable();
     showEditorFeedback("Recipe saved. Downloading updated JSON.", false);
@@ -616,13 +988,14 @@ function readIngredientRows() {
 
     return rows.map((row) => {
         const ingredientInput = row.querySelector("input[data-field='ingredient']");
-        const ingredientValue = ingredientInput?.value.trim() || "";
+        const typedValue = ingredientInput?.value.trim() || "";
+        const ingredientValue = ingredientInput?.dataset.ingredientId || "";
         const ingredient = ingredients.find((item) => {
-            return item.id === ingredientValue || item.name?.toLowerCase() === ingredientValue.toLowerCase();
+            return item.id === ingredientValue || item.name?.toLowerCase() === typedValue.toLowerCase();
         });
 
         return {
-            ingredient: ingredient?.id || ingredientValue,
+            ingredient: ingredient?.id || typedValue,
             quantity: row.querySelector("input[data-field='quantity']")?.value.trim() || ""
         };
     }).filter((row) => row.ingredient || row.quantity);
@@ -633,7 +1006,7 @@ function readMethodSteps() {
 
     return Array.from(document.querySelectorAll("[data-field='step']"))
         .map((field) => field.value.trim())
-        .filter(Boolean);
+        .slice(0, METHOD_STEP_COUNT);
 
 }
 
@@ -661,6 +1034,10 @@ function validateRecipe(recipe) {
         return "Category is required.";
     }
 
+    if (!RECIPE_CATEGORIES.includes(recipe.category)) {
+        return "Select a valid recipe category.";
+    }
+
     if (!isValidNumber(recipe.prepTime) || Number(recipe.prepTime) < 0) {
         return "Prep time must be a valid non-negative number.";
     }
@@ -677,8 +1054,16 @@ function validateRecipe(recipe) {
         return "Difficulty is required.";
     }
 
+    if (!RECIPE_DIFFICULTIES.includes(recipe.difficulty)) {
+        return "Select a valid recipe difficulty.";
+    }
+
     if (!recipe.image) {
         return "Image filename is required.";
+    }
+
+    if (!/^rec\d{3}\.jpg$/i.test(recipe.image)) {
+        return "Image filename must use the rec###.jpg convention.";
     }
 
     if (!recipe.tip) {
@@ -695,8 +1080,25 @@ function validateRecipe(recipe) {
         return "Each ingredient row must include a selected ingredient and a positive quantity.";
     }
 
-    if (!recipe.steps.length) {
-        return "At least one method step is required.";
+    const unknownIngredient = recipe.ingredients.find((row) => !ingredients.some((ingredient) => ingredient.id === row.ingredient));
+
+    if (unknownIngredient) {
+        return `Ingredient reference does not exist: ${unknownIngredient.ingredient}.`;
+    }
+
+    const duplicateIngredients = new Set();
+    const repeatedIngredient = recipe.ingredients.find((row) => {
+        if (duplicateIngredients.has(row.ingredient)) return true;
+        duplicateIngredients.add(row.ingredient);
+        return false;
+    });
+
+    if (repeatedIngredient) {
+        return `Ingredient is listed more than once: ${repeatedIngredient.ingredient}.`;
+    }
+
+    if (recipe.steps.length !== METHOD_STEP_COUNT || recipe.steps.some((step) => !step)) {
+        return `Exactly ${METHOD_STEP_COUNT} completed method steps are required.`;
     }
 
     if (!isValidNumber(recipe.nutrition?.calories) || Number(recipe.nutrition.calories) < 0) {

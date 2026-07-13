@@ -22,11 +22,18 @@ async function loadDashboardStats() {
 
     try {
 
-        const recipes =
+        let recipes =
             await loadJSON(CONFIG.recipesFile);
 
-        const ingredients =
+        let ingredients =
             await loadJSON(CONFIG.ingredientsFile);
+
+        if (!Array.isArray(recipes) || !Array.isArray(ingredients)) {
+            throw new Error("Website data must contain recipe and ingredient arrays.");
+        }
+
+        recipes = readDraft("willsgrill-recipes-draft", recipes);
+        ingredients = readDraft("willsgrill-ingredients-draft", ingredients);
 
         updateStat(
 
@@ -56,6 +63,16 @@ async function loadDashboardStats() {
 
     }
 
+}
+
+function readDraft(key, fallback) {
+    try {
+        const draft = JSON.parse(localStorage.getItem(key));
+        return Array.isArray(draft) ? draft : fallback;
+    }
+    catch (error) {
+        return fallback;
+    }
 }
 
 async function loadJSON(path){

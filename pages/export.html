@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Export | Recipe Manager</title>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <img class="brand-logo"
+                 src="https://willsgrill.github.io/Wills-Grill/assets/images/logo.jpg"
+                 alt="Will's Grill">
+            <span>Recipe Manager</span>
+        </div>
+
+        <nav>
+            <a href="../index.html">Dashboard</a>
+            <a href="recipes.html">Recipes</a>
+            <a href="ingredients.html">Ingredients</a>
+            <a href="export.html" class="active">Export</a>
+        </nav>
+
+    </aside>
+
+    <main class="content">
+
+        <header class="page-header">
+            <div>
+                <h2>Export</h2>
+                <p>Download the current website files as a ZIP.</p>
+            </div>
+        </header>
+
+        <section class="card package-card">
+            <div class="package-summary">
+                <div>
+                    <h3>Ready to export</h3>
+                    <p id="packageSummary">Loading current website data...</p>
+                </div>
+                <div class="package-actions">
+                    <button id="refreshDataButton" type="button" class="secondary-button">Discard local changes</button>
+                    <button id="downloadPackageButton" type="button" class="primary-button" disabled>Download ZIP</button>
+                </div>
+            </div>
+            <p id="packageStatus" class="editor-feedback" aria-live="polite"></p>
+        </section>
+
+        <section class="card package-card">
+            <h3>ZIP structure</h3>
+            <p class="package-description">The downloaded ZIP matches the website repository structure exactly.</p>
+            <ul class="package-file-list">
+                <li>data/ingredients/ingredients.json</li>
+                <li>data/recipes/recipes.json</li>
+                <li>assets/images/recipes/</li>
+            </ul>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="../assets/js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="../assets/js/export.js"></script>
+
+</body>
+
+</html>
