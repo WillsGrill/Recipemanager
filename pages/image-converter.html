@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Image Converter | Will's Grill Studio</title>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <h1>Will's Grill</h1>
+            <span>Studio</span>
+        </div>
+
+        <nav>
+            <a href="../index.html">Dashboard</a>
+            <a href="recipes.html">Recipes</a>
+            <a href="ingredients.html">Ingredients</a>
+            <a href="image-converter.html" class="active">Image Converter</a>
+        </nav>
+
+    </aside>
+
+    <main class="content">
+
+        <header class="page-header">
+            <div>
+                <h2>Image Converter</h2>
+                <p>Convert recipe images to web-friendly JPEG files.</p>
+            </div>
+        </header>
+
+        <section class="converter-card card">
+            <div class="converter-fields">
+                <label class="upload-field">
+                    Images
+                    <input id="imageFiles" type="file" accept="image/*" multiple>
+                    <span class="field-help">Choose one or more images. Files are processed locally in your browser.</span>
+                </label>
+
+                <label>
+                    Starting number
+                    <input id="startingNumber" type="number" min="1" value="1">
+                    <span class="field-help">Files will be named rec001.jpg, rec002.jpg, and so on.</span>
+                </label>
+            </div>
+
+            <div class="converter-actions">
+                <button id="convertImagesButton" type="button" class="primary-button" disabled>Convert Images</button>
+                <button id="clearImagesButton" type="button" class="secondary-button">Clear</button>
+            </div>
+
+            <p id="converterStatus" class="editor-feedback" aria-live="polite"></p>
+        </section>
+
+        <section id="imagePreviewGrid" class="image-preview-grid" aria-live="polite"></section>
+
+    </main>
+
+</div>
+
+<script src="../assets/js/image-converter.js"></script>
+
+</body>
+
+</html>

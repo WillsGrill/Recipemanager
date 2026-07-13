@@ -2,6 +2,7 @@
 
 let ingredients = [];
 let currentIngredient = null;
+let creatingIngredient = false;
 
 document.addEventListener("DOMContentLoaded", initialiseIngredientsPage);
 
@@ -144,6 +145,7 @@ function createBlankIngredient() {
 function openIngredientEditor(ingredient) {
     if (!ingredient) return;
     currentIngredient = { ...ingredient };
+    creatingIngredient = !ingredient.id;
     renderIngredientEditor();
     const editorPanel = document.getElementById("ingredientEditorPanel");
     if (editorPanel) {
@@ -157,6 +159,7 @@ function closeIngredientEditor() {
         editorPanel.classList.remove("open");
     }
     currentIngredient = null;
+    creatingIngredient = false;
 }
 
 function renderIngredientEditor() {
@@ -168,7 +171,7 @@ function renderIngredientEditor() {
             <div class="field-grid">
                 <label class="full-width">
                     Ingredient ID
-                    <input id="ingredientId" value="${escapeHtml(currentIngredient.id || "")}" required>
+                    <input id="ingredientId" value="${escapeHtml(currentIngredient.id || generateIngredientId(currentIngredient.category))}" readonly required>
                 </label>
                 <label class="full-width">
                     Name
@@ -176,7 +179,14 @@ function renderIngredientEditor() {
                 </label>
                 <label class="full-width">
                     Category
-                    <input id="ingredientCategory" value="${escapeHtml(currentIngredient.category || "")}">
+                    <input id="ingredientCategory" list="ingredientCategoryOptions" value="${escapeHtml(currentIngredient.category || "")}"
+                        <input id="ingredientCategory" class="category-search-input" list="ingredientCategoryOptions" value="${escapeHtml(currentIngredient.category || "")}"
+                           placeholder="Select a category">
+                    <datalist id="ingredientCategoryOptions">
+                        ${getIngredientCategories().map((category) => `
+                            <option value="${escapeHtml(category)}"></option>
+                        `).join("")}
+                    </datalist>
                 </label>
                 <label class="full-width">
                     Unit
@@ -192,6 +202,16 @@ function renderIngredientEditor() {
 
     const form = document.getElementById("ingredientEditorForm");
     const cancelButton = document.getElementById("cancelIngredientEdit");
+    const categoryInput = document.getElementById("ingredientCategory");
+
+    if (categoryInput && creatingIngredient) {
+        categoryInput.addEventListener("input", () => {
+            const idInput = document.getElementById("ingredientId");
+            if (idInput) {
+                idInput.value = generateIngredientId(categoryInput.value);
+            }
+        });
+    }
 
     if (form) {
         form.addEventListener("submit", (event) => {
@@ -205,6 +225,14 @@ function renderIngredientEditor() {
     }
 }
 
+function getIngredientCategories() {
+    return [...new Set(
+        ingredients
+            .map((ingredient) => (ingredient.category || "").trim())
+            .filter(Boolean)
+    )].sort((firstCategory, secondCategory) => firstCategory.localeCompare(secondCategory));
+}
+
 function saveIngredientFromEditor() {
     const idInput = document.getElementById("ingredientId");
     const nameInput = document.getElementById("ingredientName");
@@ -214,7 +242,7 @@ function saveIngredientFromEditor() {
     if (!idInput || !nameInput || !categoryInput || !unitInput) return;
 
     const updatedIngredient = {
-        id: idInput.value.trim(),
+        id: creatingIngredient ? generateIngredientId(categoryInput.value) : idInput.value.trim(),
         name: nameInput.value.trim(),
         category: categoryInput.value.trim(),
         unit: unitInput.value.trim()
@@ -231,6 +259,17 @@ function saveIngredientFromEditor() {
 
     renderIngredientTable();
     closeIngredientEditor();
+}
+
+function generateIngredientId(category = "") {
+    const typeCode = (category.trim().charAt(0) || "X").toUpperCase();
+    const prefix = `ING-${typeCode}-`;
+    const nextNumber = ingredients.reduce((highestNumber, ingredient) => {
+        const match = (ingredient.id || "").match(new RegExp(`^${prefix}(\\d+)$`, "i"));
+        return match ? Math.max(highestNumber, Number(match[1])) : highestNumber;
+    }, 0) + 1;
+
+    return `${prefix}${String(nextNumber).padStart(3, "0")}`;
 }
 
 function escapeHtml(value) {

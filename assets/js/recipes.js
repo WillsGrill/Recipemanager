@@ -381,14 +381,19 @@ function renderIngredientRows(ingredientRows) {
     return ingredientRows.map((row, index) => `
         <tr>
             <td>
-                <select data-field="ingredient" data-index="${index}">
-                    <option value="">Select ingredient</option>
+                <input
+                    type="search"
+                    class="ingredient-search-input"
+                    placeholder="Search ingredients..."
+                    list="ingredientOptions-${index}"
+                    data-field="ingredient"
+                    data-index="${index}"
+                    value="${escapeHtml(getIngredientDisplayValue(row.ingredient))}">
+                <datalist id="ingredientOptions-${index}">
                     ${ingredients.map((ingredient) => `
-                        <option value="${escapeHtml(ingredient.id)}" ${row.ingredient === ingredient.id ? "selected" : ""}>
-                            ${escapeHtml(ingredient.id)} - ${escapeHtml(ingredient.name)}
-                        </option>
+                        <option value="${escapeHtml(ingredient.name || ingredient.id || "")}" label="${escapeHtml(ingredient.id || "")}"></option>
                     `).join("")}
-                </select>
+                </datalist>
             </td>
             <td>
                 <input type="text" inputmode="decimal" data-field="quantity" data-index="${index}" value="${escapeHtml(row.quantity || "")}">
@@ -399,6 +404,12 @@ function renderIngredientRows(ingredientRows) {
         </tr>
     `).join("");
 
+}
+
+function getIngredientDisplayValue(ingredientId) {
+    const ingredient = ingredients.find((item) => item.id === ingredientId);
+    if (!ingredient) return ingredientId || "";
+    return ingredient.name || ingredient.id || "";
 }
 
 function renderMethodRows(steps) {
@@ -603,10 +614,18 @@ function readIngredientRows() {
 
     const rows = Array.from(document.querySelectorAll("#ingredientRows tr"));
 
-    return rows.map((row) => ({
-        ingredient: row.querySelector("select")?.value || "",
-        quantity: row.querySelector("input[data-field='quantity']")?.value.trim() || ""
-    })).filter((row) => row.ingredient || row.quantity);
+    return rows.map((row) => {
+        const ingredientInput = row.querySelector("input[data-field='ingredient']");
+        const ingredientValue = ingredientInput?.value.trim() || "";
+        const ingredient = ingredients.find((item) => {
+            return item.id === ingredientValue || item.name?.toLowerCase() === ingredientValue.toLowerCase();
+        });
+
+        return {
+            ingredient: ingredient?.id || ingredientValue,
+            quantity: row.querySelector("input[data-field='quantity']")?.value.trim() || ""
+        };
+    }).filter((row) => row.ingredient || row.quantity);
 
 }
 
