@@ -6,14 +6,14 @@
 
 const CONFIG = {
 
-    websiteRepository: "../Wills-Grill",
+    websiteRepository: "https://willsgrill.github.io/Wills-Grill",
 
-    recipesFile: "../data/recipes.json",
+    recipesFile: "https://willsgrill.github.io/Wills-Grill/data/recipes/recipes.json",
 
-    ingredientsFile: "../data/ingredients.json",
+    ingredientsFile: "https://willsgrill.github.io/Wills-Grill/data/ingredients/ingredients.json",
 
-    recipeImages: "../assets/images/recipes/",
+    recipeImages: "https://willsgrill.github.io/Wills-Grill/assets/images/recipes/",
 
-    logo: "../assets/images/logo.jpg"
+    logo: "https://willsgrill.github.io/Wills-Grill/assets/images/logo.jpg"
 
 };
