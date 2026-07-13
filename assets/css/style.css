@@ -50,6 +50,7 @@ a{
     grid-template-columns:260px 1fr;
 
     min-height:100vh;
+    min-width:0;
 
 }
 
@@ -64,6 +65,7 @@ a{
     border-right:1px solid var(--border);
 
     padding:32px 24px;
+    min-width:0;
 
 }
 
@@ -147,6 +149,7 @@ nav a.active{
 .content{
 
     padding:40px;
+    min-width:0;
 
 }
 
@@ -751,7 +754,8 @@ select:focus{
 
 .editor-body{
 
-    overflow-y:auto;
+    overflow:auto;
+    min-width:0;
 }
 
 .editor-tabs{
@@ -1105,6 +1109,65 @@ textarea{
         flex-direction:column;
         align-items:flex-start;
         gap:10px;
+    }
+
+}
+
+@media (max-width:600px){
+
+    .sidebar{
+        padding:20px 16px;
+    }
+
+    .brand{
+        margin-bottom:24px;
+    }
+
+    .brand-logo{
+        max-width:170px;
+    }
+
+    nav{
+        display:grid;
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        gap:8px;
+    }
+
+    nav a{
+        padding:11px 10px;
+        text-align:center;
+    }
+
+    .content{
+        padding:20px 14px;
+    }
+
+    header h2{
+        font-size:1.65rem;
+    }
+
+    .toolbar{
+        align-items:stretch;
+        flex-direction:column;
+    }
+
+    .toolbar input,
+    .toolbar select,
+    .toolbar button{
+        width:100%;
+        max-width:none;
+        min-width:0;
+    }
+
+    .editor-header,
+    .editor-body{
+        padding:18px;
+    }
+
+    .editor-actions button{
+        min-width:0;
+        padding-left:10px;
+        padding-right:10px;
     }
 
 }
