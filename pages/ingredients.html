@@ -60,9 +60,8 @@
 
         <div class="toolbar">
 
-            <input
-                id="ingredientSearch"
-                placeholder="Search ingredients...">
+            <input id="ingredientSearch" placeholder="Search ingredients...">
+            <button id="exportIngredientsButton" class="secondary-button">Export JSON</button>
 
         </div>
 
@@ -95,6 +94,18 @@
     </main>
 
 </div>
+
+<aside id="ingredientEditorPanel" class="editor-panel">
+    <div class="editor-header">
+        <h2>Edit Ingredient</h2>
+        <button id="closeIngredientEditor">✕</button>
+    </div>
+    <div class="editor-body">
+        <div id="ingredientEditorContent">
+            <p>Select an ingredient to begin editing.</p>
+        </div>
+    </div>
+</aside>
 
 <script src="../assets/js/config.js"></script>
 <script src="../assets/js/ingredients.js"></script>

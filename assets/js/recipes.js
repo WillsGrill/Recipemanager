@@ -13,6 +13,7 @@ function initialiseRecipesPage() {
     const searchInput = document.getElementById("recipeSearch");
     const newRecipeButton = document.getElementById("newRecipeButton");
     const closeEditorButton = document.getElementById("closeEditor");
+    const exportRecipesButton = document.getElementById("exportRecipesButton");
 
     if (searchInput) {
         searchInput.addEventListener("input", () => renderRecipeTable(searchInput.value));
@@ -24,6 +25,10 @@ function initialiseRecipesPage() {
 
     if (closeEditorButton) {
         closeEditorButton.addEventListener("click", closeEditor);
+    }
+
+    if (exportRecipesButton) {
+        exportRecipesButton.addEventListener("click", () => exportJSON(CONFIG.recipesFile, "recipes.json"));
     }
 
     document.querySelectorAll(".tab").forEach((tab) => {
@@ -77,6 +82,25 @@ async function loadJSON(path) {
 
 }
 
+async function exportJSON(path, filename) {
+    try {
+        const data = await loadJSON(path);
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = filename;
+        document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor);
+        URL.revokeObjectURL(url);
+    }
+    catch (error) {
+        console.error(error);
+        alert("Unable to export JSON. Check the console for details.");
+    }
+}
+
 function renderRecipeTable(searchText = "") {
 
     const tableBody = document.getElementById("recipeTable");
@@ -88,9 +112,15 @@ function renderRecipeTable(searchText = "") {
 
         if (!query) return true;
 
-        return [recipe.id, recipe.name, recipe.category, recipe.description]
+        const recipeMatches = [recipe.id, recipe.name, recipe.category, recipe.description]
             .filter(Boolean)
             .some((value) => value.toString().toLowerCase().includes(query));
+
+        if (recipeMatches) {
+            return true;
+        }
+
+        return recipeIngredientsMatch(recipe, query);
 
     });
 
@@ -120,6 +150,28 @@ function renderRecipeTable(searchText = "") {
         button.addEventListener("click", () => openEditor(findRecipeById(button.getAttribute("data-recipe-id"))));
     });
 
+}
+
+function recipeIngredientsMatch(recipe, query) {
+    const ingredientReferences = recipe.ingredients
+        .map((item) => (item.ingredient || "").toString().toLowerCase())
+        .filter(Boolean);
+
+    if (ingredientReferences.some((ingredientText) => ingredientText.includes(query))) {
+        return true;
+    }
+
+    const matchingIngredientIds = new Set(
+        ingredients
+            .filter((ingredient) => {
+                return [ingredient.id, ingredient.name, ingredient.category, ingredient.unit]
+                    .filter(Boolean)
+                    .some((value) => value.toString().toLowerCase().includes(query));
+            })
+            .map((ingredient) => (ingredient.id || "").toString().toLowerCase())
+    );
+
+    return ingredientReferences.some((reference) => matchingIngredientIds.has(reference));
 }
 
 function createBlankRecipe() {

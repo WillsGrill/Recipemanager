@@ -1,15 +1,31 @@
 "use strict";
 
 let ingredients = [];
+let currentIngredient = null;
 
 document.addEventListener("DOMContentLoaded", initialiseIngredientsPage);
 
 function initialiseIngredientsPage() {
 
     const searchInput = document.getElementById("ingredientSearch");
+    const exportIngredientsButton = document.getElementById("exportIngredientsButton");
+    const newIngredientButton = document.getElementById("newIngredientButton");
+    const closeIngredientEditorButton = document.getElementById("closeIngredientEditor");
 
     if (searchInput) {
         searchInput.addEventListener("input", () => renderIngredientTable(searchInput.value));
+    }
+
+    if (exportIngredientsButton) {
+        exportIngredientsButton.addEventListener("click", () => exportJSON(CONFIG.ingredientsFile, "ingredients.json"));
+    }
+
+    if (newIngredientButton) {
+        newIngredientButton.addEventListener("click", () => openIngredientEditor(createBlankIngredient()));
+    }
+
+    if (closeIngredientEditorButton) {
+        closeIngredientEditorButton.addEventListener("click", closeIngredientEditor);
     }
 
     loadIngredientData();
@@ -51,6 +67,25 @@ async function loadJSON(path) {
 
 }
 
+async function exportJSON(path, filename) {
+    try {
+        const data = await loadJSON(path);
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = filename;
+        document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor);
+        URL.revokeObjectURL(url);
+    }
+    catch (error) {
+        console.error(error);
+        alert("Unable to export JSON. Check the console for details.");
+    }
+}
+
 function renderIngredientTable(searchText = "") {
 
     const tableBody = document.getElementById("ingredientTable");
@@ -80,13 +115,122 @@ function renderIngredientTable(searchText = "") {
             <td>${escapeHtml(ingredient.category || "")}</td>
             <td>${escapeHtml(ingredient.unit || "")}</td>
             <td class="edit-action">
-                <button type="button" class="secondary-button" disabled>
+                <button type="button" class="secondary-button" data-action="edit-ingredient" data-ingredient-id="${escapeHtml(ingredient.id || "")}">
                     Edit
                 </button>
             </td>
         </tr>
     `).join("");
 
+    tableBody.querySelectorAll("[data-action='edit-ingredient']").forEach((button) => {
+        button.addEventListener("click", () => openIngredientEditor(findIngredientById(button.getAttribute("data-ingredient-id"))));
+    });
+}
+
+function findIngredientById(id) {
+    if (!id) return null;
+    return ingredients.find((ingredient) => ingredient.id === id) || null;
+}
+
+function createBlankIngredient() {
+    return {
+        id: "",
+        name: "",
+        category: "",
+        unit: ""
+    };
+}
+
+function openIngredientEditor(ingredient) {
+    if (!ingredient) return;
+    currentIngredient = { ...ingredient };
+    renderIngredientEditor();
+    const editorPanel = document.getElementById("ingredientEditorPanel");
+    if (editorPanel) {
+        editorPanel.classList.add("open");
+    }
+}
+
+function closeIngredientEditor() {
+    const editorPanel = document.getElementById("ingredientEditorPanel");
+    if (editorPanel) {
+        editorPanel.classList.remove("open");
+    }
+    currentIngredient = null;
+}
+
+function renderIngredientEditor() {
+    const editorContent = document.getElementById("ingredientEditorContent");
+    if (!editorContent || !currentIngredient) return;
+
+    editorContent.innerHTML = `
+        <form id="ingredientEditorForm" class="editor-form">
+            <div class="field-grid">
+                <label class="full-width">
+                    Ingredient ID
+                    <input id="ingredientId" value="${escapeHtml(currentIngredient.id || "")}" required>
+                </label>
+                <label class="full-width">
+                    Name
+                    <input id="ingredientName" value="${escapeHtml(currentIngredient.name || "")}" required>
+                </label>
+                <label class="full-width">
+                    Category
+                    <input id="ingredientCategory" value="${escapeHtml(currentIngredient.category || "")}">
+                </label>
+                <label class="full-width">
+                    Unit
+                    <input id="ingredientUnit" value="${escapeHtml(currentIngredient.unit || "")}">
+                </label>
+            </div>
+            <div class="editor-actions">
+                <button type="submit" class="primary-button">Save</button>
+                <button type="button" class="secondary-button" id="cancelIngredientEdit">Cancel</button>
+            </div>
+        </form>
+    `;
+
+    const form = document.getElementById("ingredientEditorForm");
+    const cancelButton = document.getElementById("cancelIngredientEdit");
+
+    if (form) {
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            saveIngredientFromEditor();
+        });
+    }
+
+    if (cancelButton) {
+        cancelButton.addEventListener("click", closeIngredientEditor);
+    }
+}
+
+function saveIngredientFromEditor() {
+    const idInput = document.getElementById("ingredientId");
+    const nameInput = document.getElementById("ingredientName");
+    const categoryInput = document.getElementById("ingredientCategory");
+    const unitInput = document.getElementById("ingredientUnit");
+
+    if (!idInput || !nameInput || !categoryInput || !unitInput) return;
+
+    const updatedIngredient = {
+        id: idInput.value.trim(),
+        name: nameInput.value.trim(),
+        category: categoryInput.value.trim(),
+        unit: unitInput.value.trim()
+    };
+
+    const existingIndex = ingredients.findIndex((ingredient) => ingredient.id === currentIngredient.id);
+
+    if (existingIndex >= 0 && currentIngredient.id) {
+        ingredients[existingIndex] = updatedIngredient;
+    }
+    else {
+        ingredients.push(updatedIngredient);
+    }
+
+    renderIngredientTable();
+    closeIngredientEditor();
 }
 
 function escapeHtml(value) {
